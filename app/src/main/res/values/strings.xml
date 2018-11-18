@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">StudentFood</string>
+    <string name="app_name">Покормите Студента</string>
+
+    <string name="category_a_title">Category A</string>
+    <string name="category_b_title">Category B</string>
+    <string name="category_c_title">Category C</string>
+    <string name="category_favorite_title">Избранные</string>
+    <string name="category_my_title">Мои</string>
+
+    <string name="title_activity_list">ListActivity</string>
+
+
 </resources>
