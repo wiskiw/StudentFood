@@ -1,7 +1,7 @@
 package by.wiskiw.studentfood.data.db.repository
 
 import by.wiskiw.studentfood.data.db.DaoProvider
-import by.wiskiw.studentfood.data.db.model.SimpleRecipe
+import by.wiskiw.studentfood.mvp.model.SimpleRecipe
 
 object FavoriteRecipeRepositoryKt {
 

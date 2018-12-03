@@ -13,7 +13,7 @@ import android.widget.TextView;
 import org.jetbrains.annotations.NotNull;
 
 import by.wiskiw.studentfood.R;
-import by.wiskiw.studentfood.data.db.model.CookStep;
+import by.wiskiw.studentfood.mvp.model.CookStep;
 
 public class DescriptionActivity extends AppCompatActivity {
 

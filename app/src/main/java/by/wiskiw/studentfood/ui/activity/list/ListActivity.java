@@ -1,19 +1,17 @@
 package by.wiskiw.studentfood.ui.activity.list;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import by.wiskiw.studentfood.R;
 import by.wiskiw.studentfood.mvp.model.RecipeCategory;
 
-public class ListActivity extends AppCompatActivity {
+public abstract class ListActivity extends AppCompatActivity {
 
-    private static final String INTENT_TAG_RECIPE_CAT = "rec-cat";
+    private static final String INTENT_TAG_RECIPE_CAT = "recipe-category";
 
-    public static void putParams(Intent intent, RecipeCategory recipeCategory) {
+    public static void putParams(Intent intent, RecipeCategory category) {
         if (intent != null) {
-            intent.putExtra(INTENT_TAG_RECIPE_CAT, recipeCategory);
+            intent.putExtra(INTENT_TAG_RECIPE_CAT, category);
         }
     }
 

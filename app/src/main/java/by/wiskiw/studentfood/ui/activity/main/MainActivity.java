@@ -9,6 +9,7 @@ import android.support.v7.widget.CardView;
 import com.hannesdorfmann.mosby3.mvp.MvpActivity;
 
 import by.wiskiw.studentfood.R;
+import by.wiskiw.studentfood.mvp.model.RecipeGroup;
 import by.wiskiw.studentfood.mvp.model.RecipeCategory;
 import by.wiskiw.studentfood.mvp.presenter.MainPresenter;
 import by.wiskiw.studentfood.mvp.view.MainView;
@@ -44,39 +45,44 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         setupButtonClickListeners();
     }
 
-    private void onClick(RecipeCategory recipeCategory) {
-        presenter.onCategoryClicked(recipeCategory);
-    }
-
     private void setupButtonClickListeners() {
-        categoryACv.setOnClickListener(v -> onClick(RecipeCategory.CAT_A));
-        categoryBCv.setOnClickListener(v -> onClick(RecipeCategory.CAT_B));
-        categoryCCv.setOnClickListener(v -> onClick(RecipeCategory.CAT_C));
-        categoryMyCv.setOnClickListener(v -> onClick(RecipeCategory.MY));
-        categoryFavoriteCv.setOnClickListener(v -> onClick(RecipeCategory.FAVORITE));
+        categoryACv.setOnClickListener(v ->
+                presenter.onCategoryClicked(RecipeGroup.STATIC, RecipeCategory.CATEGORY_A));
+
+        categoryBCv.setOnClickListener(v ->
+                presenter.onCategoryClicked(RecipeGroup.STATIC, RecipeCategory.CATEGORY_B));
+
+        categoryCCv.setOnClickListener(v ->
+                presenter.onCategoryClicked(RecipeGroup.STATIC, RecipeCategory.CATEGORY_C));
+
+        categoryMyCv.setOnClickListener(v ->
+                presenter.onCategoryClicked(RecipeGroup.STATIC, null));
+
+        categoryFavoriteCv.setOnClickListener(v ->
+                presenter.onCategoryClicked(RecipeGroup.STATIC, null));
     }
 
     @Override
-    public void startListActivity(RecipeCategory recipeCategory) {
+    public void startListActivity(RecipeGroup group, @Nullable RecipeCategory recipeCategory) {
         Class activityClass = null;
-        switch (recipeCategory) {
-            case CAT_A:
-            case CAT_B:
-            case CAT_C:
+        switch (group) {
+            case STATIC:
                 activityClass = StaticCategoryListActivity.class;
                 break;
-            case MY:
+            case MINE:
                 activityClass = ListActivity.class;
                 break;
             case FAVORITE:
                 activityClass = FavoriteListActivity.class;
                 break;
             default:
-                assert true : "Process all categories!";
+                assert true : "Process all groups!";
         }
 
         Intent intent = new Intent(this, activityClass);
-        ListActivity.putParams(intent, recipeCategory);
+        if (recipeCategory != null) {
+            ListActivity.putParams(intent, recipeCategory);
+        }
         startActivity(intent);
     }
 }

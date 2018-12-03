@@ -1,4 +1,4 @@
-package by.wiskiw.studentfood.data.db.model;
+package by.wiskiw.studentfood.mvp.model;
 
 import android.support.annotation.Nullable;
 
@@ -15,7 +15,7 @@ public class SimpleRecipe {
     private String title = "";
     private String description = "";
     private List<CookStep> steps = new ArrayList<>();
-    private Set<CookCategory> categories = new HashSet<>();
+    private Set<RecipeCategory> categories = new HashSet<>();
 
     @Nullable
     private File headerImageFile;
@@ -62,15 +62,15 @@ public class SimpleRecipe {
         steps.add(cookStep);
     }
 
-    public void addCategory(CookCategory cookCategory) {
-        categories.add(cookCategory);
+    public void addCategory(RecipeCategory recipeCategory) {
+        categories.add(recipeCategory);
     }
 
-    public boolean isIt(CookCategory cookCategory) {
-        return categories.contains(cookCategory);
+    public boolean isIt(RecipeCategory recipeCategory) {
+        return categories.contains(recipeCategory);
     }
 
-    public Set<CookCategory> getCategories() {
+    public Set<RecipeCategory> getCategories() {
         return categories;
     }
 }

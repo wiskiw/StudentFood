@@ -2,7 +2,7 @@ package by.wiskiw.studentfood.data.db.dao.recipe
 
 import by.wiskiw.studentfood.data.db.Response
 import by.wiskiw.studentfood.data.db.exception.RecordByIdNotFound
-import by.wiskiw.studentfood.data.db.model.SimpleRecipe
+import by.wiskiw.studentfood.mvp.model.SimpleRecipe
 import io.paperdb.Book
 
 class RecipeDaoKt(private val book: Book) : RecipeDao {

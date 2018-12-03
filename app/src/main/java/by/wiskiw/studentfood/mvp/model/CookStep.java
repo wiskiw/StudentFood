@@ -1,4 +1,4 @@
-package by.wiskiw.studentfood.data.db.model;
+package by.wiskiw.studentfood.mvp.model;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
