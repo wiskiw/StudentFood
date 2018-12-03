@@ -37,4 +37,11 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    // MVP Lib. - Mosby (Ted)
+    implementation 'com.hannesdorfmann.mosby3:viewstate:3.1.0' // MVP + ViewState support
+
+    // EventBus Lib.
+    implementation 'org.greenrobot:eventbus:3.1.1'
+
 }

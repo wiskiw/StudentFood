@@ -1,4 +1,4 @@
-package by.wiskiw.studentfood;
+package by.wiskiw.studentfood.ui.activity.description;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import org.jetbrains.annotations.NotNull;
 
+import by.wiskiw.studentfood.R;
 import by.wiskiw.studentfood.entity.CookLevel;
 
 public class DescriptionActivity extends AppCompatActivity {

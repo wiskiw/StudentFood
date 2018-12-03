@@ -9,7 +9,7 @@
     android:paddingRight="16dp"
     android:paddingBottom="8dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".DescriptionActivity"
+    tools:context=".ui.activity.description.DescriptionActivity"
     tools:showIn="@layout/activity_description">
 
     <android.support.constraint.ConstraintLayout
