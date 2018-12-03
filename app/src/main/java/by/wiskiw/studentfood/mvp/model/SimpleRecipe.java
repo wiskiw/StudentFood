@@ -15,7 +15,7 @@ public class SimpleRecipe {
     private String title = "";
     private String description = "";
     private List<CookStep> steps = new ArrayList<>();
-    private Set<RecipeCategory> categories = new HashSet<>();
+    private Set<RecipeGroup> groups = new HashSet<>();
 
     @Nullable
     private File headerImageFile;
@@ -62,15 +62,15 @@ public class SimpleRecipe {
         steps.add(cookStep);
     }
 
-    public void addCategory(RecipeCategory recipeCategory) {
-        categories.add(recipeCategory);
+    public void addCategory(RecipeGroup recipeGroup) {
+        groups.add(recipeGroup);
     }
 
-    public boolean isIt(RecipeCategory recipeCategory) {
-        return categories.contains(recipeCategory);
+    public boolean isIt(RecipeGroup recipeGroup) {
+        return groups.contains(recipeGroup);
     }
 
-    public Set<RecipeCategory> getCategories() {
-        return categories;
+    public Set<RecipeGroup> getGroups() {
+        return groups;
     }
 }

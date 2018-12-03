@@ -1,5 +1,7 @@
 package by.wiskiw.studentfood.data.db.dao.recipe;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -23,11 +25,12 @@ public class RecipeDaoJava implements RecipeDao {
     }
 
     @Override
+    @NonNull
     public List<SimpleRecipe> getAll() {
         return new ArrayList<>(getAllAsSet());
     }
 
-    public Set<SimpleRecipe> getAllAsSet() {
+    private Set<SimpleRecipe> getAllAsSet() {
         if (recipeList == null) {
             recipeList = book.read(TAG_RECIPES, new HashSet<>());
         }
@@ -41,6 +44,7 @@ public class RecipeDaoJava implements RecipeDao {
     }
 
     @Override
+    @NonNull
     public Response<SimpleRecipe> get(int id) {
         Iterator<SimpleRecipe> iterator = getAllAsSet().iterator();
         SimpleRecipe simpleRecipe;
@@ -54,6 +58,7 @@ public class RecipeDaoJava implements RecipeDao {
     }
 
     @Override
+    @NonNull
     public Response<Boolean> delete(int id) {
         Iterator<SimpleRecipe> iterator = getAllAsSet().iterator();
         SimpleRecipe simpleRecipe;

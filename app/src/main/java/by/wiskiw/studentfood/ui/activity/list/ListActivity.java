@@ -16,7 +16,7 @@ public abstract class ListActivity extends AppCompatActivity {
     }
 
     protected RecipeCategory getRecipeCategory(Intent args) {
-        return args.getParcelableExtra(INTENT_TAG_RECIPE_CAT);
+        return (RecipeCategory) args.getSerializableExtra(INTENT_TAG_RECIPE_CAT);
     }
 
 }

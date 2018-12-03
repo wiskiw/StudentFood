@@ -1,73 +1,95 @@
 package by.wiskiw.studentfood.ui.activity.description;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hannesdorfmann.mosby3.mvp.MvpActivity;
+
 import org.jetbrains.annotations.NotNull;
 
 import by.wiskiw.studentfood.R;
+import by.wiskiw.studentfood.di.FoodApp;
 import by.wiskiw.studentfood.mvp.model.CookStep;
+import by.wiskiw.studentfood.mvp.model.RecipeGroup;
+import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
+import by.wiskiw.studentfood.mvp.presenter.DescriptionPresenter;
+import by.wiskiw.studentfood.mvp.view.DescriptionView;
 
-public class DescriptionActivity extends AppCompatActivity {
+public class DescriptionActivity extends MvpActivity<DescriptionView, DescriptionPresenter>
+        implements DescriptionView {
+
+    private static final String INTENT_TAG_RECIPE_ID = "recipe-id";
+    private static final String INTENT_TAG_RECIPE_LIST_POSITION = "recipe-list-pos";
+    private static final String INTENT_TAG_RECIPE_GROUP = "recipe-group";
 
     private LinearLayout cookingLevelsLl;
 
     private ImageView headerIv;
-    private ImageView action1Iv;
+    private ImageView addToFavoriteBtn;
     private ImageView action2Iv;
     private ImageView action3Iv;
 
     private TextView descriptionTv;
 
+    @NonNull
+    @Override
+    public DescriptionPresenter createPresenter() {
+        return new DescriptionPresenter();
+    }
+
+    public static void putArgs(Intent intent, RecipeGroup group, int recipeId, int listPosition) {
+        intent.putExtra(INTENT_TAG_RECIPE_GROUP, group);
+        intent.putExtra(INTENT_TAG_RECIPE_ID, recipeId);
+        intent.putExtra(INTENT_TAG_RECIPE_LIST_POSITION, listPosition);
+    }
+
+    private void parseArgs() {
+        Intent args = getIntent();
+        int recipeId = args.getIntExtra(INTENT_TAG_RECIPE_ID, -1);
+        int recipeListPos = args.getIntExtra(INTENT_TAG_RECIPE_LIST_POSITION, -1);
+        RecipeGroup recipeGroup = (RecipeGroup) args.getSerializableExtra(INTENT_TAG_RECIPE_GROUP);
+        if (recipeId < 0 || recipeListPos < 0 || recipeGroup == null) {
+            Exception ex = new IllegalArgumentException("You must pass recipe Id, recipe list position and recipeGroup " +
+                    "to DescriptionActivity!");
+            Log.e(FoodApp.LOG_TAG, "Wrong activity args:" +
+                            " recipeId " + recipeId
+                            + "; recipeListPos " + recipeListPos
+                            + "; recipeGroup " + recipeListPos
+                    , ex);
+            finish();
+        } else {
+            presenter.setRecipeData(recipeId, recipeListPos);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_description);
 
+        parseArgs();
+
         cookingLevelsLl = findViewById(R.id.linear_layout_cooking_levels);
         headerIv = findViewById(R.id.image_view_header);
 
-        action1Iv = findViewById(R.id.image_view_action_1);
+        addToFavoriteBtn = findViewById(R.id.image_view_add_to_favorite);
+        addToFavoriteBtn.setOnClickListener(v -> presenter.clickAddToFavorite());
+
         action2Iv = findViewById(R.id.image_view_action_2);
         action3Iv = findViewById(R.id.image_view_action_3);
 
         descriptionTv = findViewById(R.id.text_view_description);
 
-
         setupToolbar();
-
-
-        debug();
-    }
-
-    private void debug() {
-        setupToolbarTitle("Debug Блюдо!");
-        setDescription("\n" +
-                "Один из самых популярных десертов в мире — брауни — был придуман в 1893 году на кухне легендарного отеля Palmer House в Чикаго. ");
-
-        CookStep level1 = new CookStep();
-        level1.setText("Доведите воду до кипения");
-        level1.setTimeMin(7);
-        addCookLevel(level1);
-
-
-        CookStep level2 = new CookStep();
-        level2.setText("Нарежте сыр");
-        level2.setTimeMin(3);
-        addCookLevel(level2);
-
-        CookStep level3 = new CookStep();
-        level3.setText("Всыпьте сыра");
-        level3.setTimeMin(1);
-        addCookLevel(level3);
     }
 
     private void setupToolbar() {
@@ -86,7 +108,7 @@ public class DescriptionActivity extends AppCompatActivity {
         descriptionTv.setText(description);
     }
 
-    private void addCookLevel(CookStep cookStep) {
+    private void addCookStep(CookStep cookStep) {
         LayoutInflater inflater = LayoutInflater.from(this);
         View itemView = inflater.inflate(R.layout.content_cook_level, cookingLevelsLl, false);
 
@@ -99,5 +121,17 @@ public class DescriptionActivity extends AppCompatActivity {
         // todo : show image imageView.set...
 
         cookingLevelsLl.addView(itemView);
+    }
+
+    @Override
+    public void showRecipe(SimpleRecipe recipe) {
+        setupToolbarTitle(recipe.getTitle());
+        setDescription(recipe.getDescription());
+        recipe.getSteps().forEach(this::addCookStep);
+    }
+
+    @Override
+    public void showRecipeNotFound(int recipeId) {
+        // todo showRecipeNotFound
     }
 }

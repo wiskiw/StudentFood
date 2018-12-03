@@ -19,9 +19,8 @@ object FavoriteRecipeRepositoryKt {
         return dbProvider.recipeDao.all.filter { idList.contains(it.id) }
     }
 
-    public fun putToFavorites(simpleRecipe: SimpleRecipe) {
-        dbProvider.favoriteRecipeIndexesDao.putId(simpleRecipe.id)
-        dbProvider.recipeDao.save(simpleRecipe)
+    public fun putToFavorites(recipeId: Int) {
+        dbProvider.favoriteRecipeIndexesDao.putId(recipeId)
     }
 
     public fun removeFromFavorites(recipeId: Int) {
@@ -31,6 +30,10 @@ object FavoriteRecipeRepositoryKt {
     public fun delete(recipeId: Int) {
         removeFromFavorites(recipeId)
         dbProvider.recipeDao.delete(recipeId)
+    }
+
+    public fun isInFavotite(recipeId: Int): Boolean {
+        return dbProvider.favoriteRecipeIndexesDao.ids.contains(recipeId)
     }
 
 

@@ -8,9 +8,10 @@ import android.support.v7.widget.CardView;
 
 import com.hannesdorfmann.mosby3.mvp.MvpActivity;
 
+import by.wiskiw.studentfood.BuildConfig;
 import by.wiskiw.studentfood.R;
-import by.wiskiw.studentfood.mvp.model.RecipeGroup;
 import by.wiskiw.studentfood.mvp.model.RecipeCategory;
+import by.wiskiw.studentfood.mvp.model.RecipeGroup;
 import by.wiskiw.studentfood.mvp.presenter.MainPresenter;
 import by.wiskiw.studentfood.mvp.view.MainView;
 import by.wiskiw.studentfood.ui.activity.list.FavoriteListActivity;
@@ -76,7 +77,7 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
                 activityClass = FavoriteListActivity.class;
                 break;
             default:
-                assert true : "Process all groups!";
+                if (BuildConfig.DEBUG) throw new IllegalStateException("Process all groups!");
         }
 
         Intent intent = new Intent(this, activityClass);

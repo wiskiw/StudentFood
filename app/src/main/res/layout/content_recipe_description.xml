@@ -41,7 +41,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linear_layout_cooking_levels">
 
             <ImageView
-                android:id="@+id/image_view_action_1"
+                android:id="@+id/image_view_add_to_favorite"
                 android:layout_width="0dp"
                 android:layout_height="64dp"
                 android:layout_weight="1"
