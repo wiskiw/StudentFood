@@ -1,9 +1,9 @@
-package by.wiskiw.studentfood.entity;
+package by.wiskiw.studentfood.data.db.model;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class CookLevel {
+public class CookStep {
 
     private String text = "";
     private Long time = 0L;

@@ -13,7 +13,7 @@ import android.widget.TextView;
 import org.jetbrains.annotations.NotNull;
 
 import by.wiskiw.studentfood.R;
-import by.wiskiw.studentfood.entity.CookLevel;
+import by.wiskiw.studentfood.data.db.model.CookStep;
 
 public class DescriptionActivity extends AppCompatActivity {
 
@@ -53,18 +53,18 @@ public class DescriptionActivity extends AppCompatActivity {
         setDescription("\n" +
                 "Один из самых популярных десертов в мире — брауни — был придуман в 1893 году на кухне легендарного отеля Palmer House в Чикаго. ");
 
-        CookLevel level1 = new CookLevel();
+        CookStep level1 = new CookStep();
         level1.setText("Доведите воду до кипения");
         level1.setTimeMin(7);
         addCookLevel(level1);
 
 
-        CookLevel level2 = new CookLevel();
+        CookStep level2 = new CookStep();
         level2.setText("Нарежте сыр");
         level2.setTimeMin(3);
         addCookLevel(level2);
 
-        CookLevel level3 = new CookLevel();
+        CookStep level3 = new CookStep();
         level3.setText("Всыпьте сыра");
         level3.setTimeMin(1);
         addCookLevel(level3);
@@ -86,7 +86,7 @@ public class DescriptionActivity extends AppCompatActivity {
         descriptionTv.setText(description);
     }
 
-    private void addCookLevel(CookLevel cookLevel) {
+    private void addCookLevel(CookStep cookStep) {
         LayoutInflater inflater = LayoutInflater.from(this);
         View itemView = inflater.inflate(R.layout.content_cook_level, cookingLevelsLl, false);
 
@@ -94,8 +94,8 @@ public class DescriptionActivity extends AppCompatActivity {
         TextView timeTv = itemView.findViewById(R.id.text_view_time);
         ImageView imageView = itemView.findViewById(R.id.image_view_image);
 
-        textTv.setText(cookLevel.getText());
-        timeTv.setText(cookLevel.getTimeString());
+        textTv.setText(cookStep.getText());
+        timeTv.setText(cookStep.getTimeString());
         // todo : show image imageView.set...
 
         cookingLevelsLl.addView(itemView);
