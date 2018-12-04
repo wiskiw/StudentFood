@@ -33,6 +33,15 @@ public class DescriptionActivity extends MvpActivity<DescriptionView, Descriptio
     private static final String INTENT_TAG_RECIPE_LIST_POSITION = "recipe-list-pos";
     private static final String INTENT_TAG_RECIPE_GROUP = "recipe-group";
 
+
+    /*
+     Чтобы избежать context leaks memory создаем и храним репозитории во вью (Activity)
+     и предоставляем их Презентеру по требованию
+     */
+    private StaticRecipeRepositoryKt staticRecipeRepository;
+    private FavoriteRecipeRepositoryKt favoriteRecipeRepository;
+
+
     private LinearLayout cookingLevelsLl;
 
     private ImageView headerIv;
@@ -45,10 +54,7 @@ public class DescriptionActivity extends MvpActivity<DescriptionView, Descriptio
     @NonNull
     @Override
     public DescriptionPresenter createPresenter() {
-        return new DescriptionPresenter(
-                new StaticRecipeRepositoryKt(this),
-                new FavoriteRecipeRepositoryKt(this)
-        );
+        return new DescriptionPresenter();
     }
 
     public static void putArgs(Intent intent, RecipeGroup group, int recipeId, int listPosition) {
@@ -138,5 +144,21 @@ public class DescriptionActivity extends MvpActivity<DescriptionView, Descriptio
     @Override
     public void showRecipeNotFound(int recipeId) {
         // todo showRecipeNotFound
+    }
+
+    @Override
+    public StaticRecipeRepositoryKt getStaticRecipeRep() {
+        if (staticRecipeRepository == null) {
+            staticRecipeRepository = new StaticRecipeRepositoryKt(this);
+        }
+        return staticRecipeRepository;
+    }
+
+    @Override
+    public FavoriteRecipeRepositoryKt getFavoriteRecipeRep() {
+        if (favoriteRecipeRepository == null) {
+            favoriteRecipeRepository = new FavoriteRecipeRepositoryKt(this);
+        }
+        return favoriteRecipeRepository;
     }
 }
