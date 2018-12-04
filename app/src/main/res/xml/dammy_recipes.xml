@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<recipes>
+    <recipe id="1">
+        <title>Title 1</title>
+        <description>Title 1</description>
+
+        <groups>
+            <group>static</group>
+            <group>mine</group>
+        </groups>
+
+        <steps>
+            <cookStep>
+                <text>Cook step text</text>
+                <timeLong>122200</timeLong>
+
+            </cookStep>
+
+            <cookStep>
+                <text>Cook step 2 text</text>
+                <timeLong>1000</timeLong>
+            </cookStep>
+        </steps>
+    </recipe>
+</recipes>

@@ -1,5 +1,6 @@
 package by.wiskiw.studentfood.data.db.dao.recipe;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
@@ -7,9 +8,12 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import by.wiskiw.studentfood.data.db.Response;
+import by.wiskiw.studentfood.data.db.dao.dummy.DummyRecipeReader;
 import by.wiskiw.studentfood.data.db.exception.RecordByIdNotFound;
+import by.wiskiw.studentfood.mvp.model.RecipeGroup;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
 import io.paperdb.Book;
 
@@ -18,9 +22,11 @@ public class RecipeDaoJava implements RecipeDao {
     private static final String TAG_RECIPES = "recipes";
 
     private Book book;
+    private Context context;
     private Set<SimpleRecipe> recipeList;
 
-    RecipeDaoJava(Book book) {
+    RecipeDaoJava(Context context, Book book) {
+        this.context = context;
         this.book = book;
     }
 
@@ -33,6 +39,10 @@ public class RecipeDaoJava implements RecipeDao {
     private Set<SimpleRecipe> getAllAsSet() {
         if (recipeList == null) {
             recipeList = book.read(TAG_RECIPES, new HashSet<>());
+            if (recipeList.isEmpty()) {
+                DummyRecipeReader dummyRecipeReader = new DummyRecipeReader(context);
+                recipeList = dummyRecipeReader.read();
+            }
         }
         return recipeList;
     }
@@ -96,5 +106,20 @@ public class RecipeDaoJava implements RecipeDao {
             }
         }
         return 0;
+    }
+
+    @Override
+    public int[] deleteAll(RecipeGroup[] recipeGroups) {
+        List<SimpleRecipe> toRemove = getAll()
+                .stream()
+                .filter(recipe -> recipe.isIt(recipeGroups))
+                .collect(Collectors.toList());
+
+        int numberRemoved = toRemove.size();
+        if (numberRemoved > 0) {
+            getAll().removeAll(toRemove);
+            saveAll();
+        }
+        return toRemove.stream().mapToInt(SimpleRecipe::getId).toArray();
     }
 }

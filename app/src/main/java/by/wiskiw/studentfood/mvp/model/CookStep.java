@@ -1,5 +1,7 @@
 package by.wiskiw.studentfood.mvp.model;
 
+import android.support.annotation.NonNull;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -36,4 +38,12 @@ public class CookStep {
         return calendar.get(GregorianCalendar.MINUTE) + " min";
     }
 
+    @NonNull
+    @Override
+    public String toString() {
+        return "CookStep{" +
+                "text='" + text + '\'' +
+                ", time= " + getTimeString() + " (" + time + ")" +
+                '}';
+    }
 }

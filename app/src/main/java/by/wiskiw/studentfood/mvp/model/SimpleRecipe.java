@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class SimpleRecipe {
 
@@ -62,7 +63,7 @@ public class SimpleRecipe {
         steps.add(cookStep);
     }
 
-    public void addCategory(RecipeGroup recipeGroup) {
+    public void addGroup(RecipeGroup recipeGroup) {
         groups.add(recipeGroup);
     }
 
@@ -70,7 +71,31 @@ public class SimpleRecipe {
         return groups.contains(recipeGroup);
     }
 
+    public boolean isIt(RecipeGroup[] recipeGroups) {
+        for (RecipeGroup group : recipeGroups) {
+            if (isIt(group)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Set<RecipeGroup> getGroups() {
         return groups;
+    }
+
+    @Override
+    public String toString() {
+        String cookSteps = steps.stream()
+                .map(Object::toString)
+                .collect(Collectors.joining(", "));
+
+        return "SimpleRecipe (" + id + ") {" +
+                "title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", steps=" + cookSteps +
+                ", groups=" + groups +
+                ", headerImageFile=" + headerImageFile +
+                '}';
     }
 }

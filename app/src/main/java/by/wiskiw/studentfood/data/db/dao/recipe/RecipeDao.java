@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import by.wiskiw.studentfood.data.db.Response;
+import by.wiskiw.studentfood.mvp.model.RecipeGroup;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
 
 public interface RecipeDao {
@@ -21,5 +22,7 @@ public interface RecipeDao {
     void save(SimpleRecipe simpleRecipe);
 
     int getNextId();
+
+    int[] deleteAll(RecipeGroup[] recipeGroup);
 
 }
