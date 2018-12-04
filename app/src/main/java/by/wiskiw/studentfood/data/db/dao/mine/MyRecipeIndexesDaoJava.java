@@ -3,16 +3,26 @@ package by.wiskiw.studentfood.data.db.dao.mine;
 import java.util.HashSet;
 import java.util.Set;
 
+import by.wiskiw.studentfood.data.db.DatabaseHolder;
 import io.paperdb.Book;
 
 public class MyRecipeIndexesDaoJava implements MyRecipeIndexesDao {
+
+    private static MyRecipeIndexesDaoJava instance;
 
     private Book book;
     private static final String TAG_MY_RECIPES = "my-recipes";
     private Set<Integer> myRecipeIds;
 
-    public MyRecipeIndexesDaoJava(Book book) {
-        this.book = book;
+    public static MyRecipeIndexesDaoJava getInstance() {
+        if (instance == null) {
+            instance = new MyRecipeIndexesDaoJava();
+        }
+        return instance;
+    }
+
+    private MyRecipeIndexesDaoJava() {
+        this.book = DatabaseHolder.getDatabase();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package by.wiskiw.studentfood.data.db.dao.recipe;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import java.util.List;
@@ -11,18 +12,18 @@ import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
 public interface RecipeDao {
 
     @NonNull
-    List<SimpleRecipe> getAll();
+    List<SimpleRecipe> getAll(Context context);
 
     @NonNull
-    Response<SimpleRecipe> get(int id);
+    Response<SimpleRecipe> get(Context context, int id);
 
     @NonNull
-    Response<Boolean> delete(int id);
+    Response<Boolean> delete(Context context, int id);
 
-    void save(SimpleRecipe simpleRecipe);
+    void save(Context context, SimpleRecipe simpleRecipe);
 
-    int getNextId();
+    int getNextId(Context context);
 
-    int[] deleteAll(RecipeGroup[] recipeGroup);
+    int[] deleteAll(Context context, RecipeGroup[] recipeGroup);
 
 }

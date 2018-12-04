@@ -12,9 +12,18 @@ import by.wiskiw.studentfood.mvp.view.DescriptionView;
 
 public class DescriptionPresenter extends MvpBasePresenter<DescriptionView> {
 
+    private StaticRecipeRepositoryKt staticRecipeRepository;
+    private FavoriteRecipeRepositoryKt favoriteRecipeRepository;
+
     private int recipeId = -1;
     private int recipeListPos = -1;
     private SimpleRecipe recipe;
+
+    public DescriptionPresenter(StaticRecipeRepositoryKt staticRecipeRepository,
+                                FavoriteRecipeRepositoryKt favoriteRecipeRepository) {
+        this.staticRecipeRepository = staticRecipeRepository;
+        this.favoriteRecipeRepository = favoriteRecipeRepository;
+    }
 
     public void setRecipeData(int recipeId, int recipeListPos) {
         this.recipeId = recipeId;
@@ -22,7 +31,7 @@ public class DescriptionPresenter extends MvpBasePresenter<DescriptionView> {
     }
 
     private void loadRecipe(DescriptionView view) {
-        Response<SimpleRecipe> recipeResponse = StaticRecipeRepositoryKt.INSTANCE.get(recipeId);
+        Response<SimpleRecipe> recipeResponse = staticRecipeRepository.get(recipeId);
         if (recipeResponse.isOk()) {
             SimpleRecipe recipe = recipeResponse.getData();
             view.showRecipe(recipe);
@@ -39,11 +48,10 @@ public class DescriptionPresenter extends MvpBasePresenter<DescriptionView> {
 
 
     public void clickAddToFavorite() {
-        FavoriteRecipeRepositoryKt rep = FavoriteRecipeRepositoryKt.INSTANCE;
-        if (rep.isInFavotite(recipeId)) {
-            rep.removeFromFavorites(recipeId);
+        if (favoriteRecipeRepository.isInFavorite(recipeId)) {
+            favoriteRecipeRepository.removeFromFavorites(recipeId);
         } else {
-            rep.putToFavorites(recipeId);
+            favoriteRecipeRepository.putToFavorites(recipeId);
         }
     }
 

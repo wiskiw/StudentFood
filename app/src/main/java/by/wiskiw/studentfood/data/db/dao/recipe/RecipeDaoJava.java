@@ -10,8 +10,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import by.wiskiw.studentfood.data.db.DatabaseHolder;
 import by.wiskiw.studentfood.data.db.Response;
-import by.wiskiw.studentfood.data.db.dao.dummy.DummyRecipeReader;
+import by.wiskiw.studentfood.data.db.dummy.DummyRecipeReader;
 import by.wiskiw.studentfood.data.db.exception.RecordByIdNotFound;
 import by.wiskiw.studentfood.mvp.model.RecipeGroup;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
@@ -20,23 +21,29 @@ import io.paperdb.Book;
 public class RecipeDaoJava implements RecipeDao {
 
     private static final String TAG_RECIPES = "recipes";
+    private static RecipeDaoJava instance;
 
     private Book book;
-    private Context context;
     private Set<SimpleRecipe> recipeList;
 
-    RecipeDaoJava(Context context, Book book) {
-        this.context = context;
-        this.book = book;
+    public static RecipeDaoJava getInstance() {
+        if (instance == null) {
+            instance = new RecipeDaoJava();
+        }
+        return instance;
+    }
+
+    private RecipeDaoJava() {
+        this.book = DatabaseHolder.getDatabase();
     }
 
     @Override
     @NonNull
-    public List<SimpleRecipe> getAll() {
-        return new ArrayList<>(getAllAsSet());
+    public List<SimpleRecipe> getAll(Context context) {
+        return new ArrayList<>(getAllAsSet(context));
     }
 
-    private Set<SimpleRecipe> getAllAsSet() {
+    private Set<SimpleRecipe> getAllAsSet(Context context) {
         if (recipeList == null) {
             recipeList = book.read(TAG_RECIPES, new HashSet<>());
             if (recipeList.isEmpty()) {
@@ -55,8 +62,8 @@ public class RecipeDaoJava implements RecipeDao {
 
     @Override
     @NonNull
-    public Response<SimpleRecipe> get(int id) {
-        Iterator<SimpleRecipe> iterator = getAllAsSet().iterator();
+    public Response<SimpleRecipe> get(Context context, int id) {
+        Iterator<SimpleRecipe> iterator = getAllAsSet(context).iterator();
         SimpleRecipe simpleRecipe;
         while (iterator.hasNext()) {
             simpleRecipe = iterator.next();
@@ -69,13 +76,13 @@ public class RecipeDaoJava implements RecipeDao {
 
     @Override
     @NonNull
-    public Response<Boolean> delete(int id) {
-        Iterator<SimpleRecipe> iterator = getAllAsSet().iterator();
+    public Response<Boolean> delete(Context context, int id) {
+        Iterator<SimpleRecipe> iterator = getAllAsSet(context).iterator();
         SimpleRecipe simpleRecipe;
         while (iterator.hasNext()) {
             simpleRecipe = iterator.next();
             if (simpleRecipe.getId() == id) {
-                getAllAsSet().remove(simpleRecipe);
+                getAllAsSet(context).remove(simpleRecipe);
                 saveAll();
                 return new Response<>(true);
             }
@@ -84,15 +91,15 @@ public class RecipeDaoJava implements RecipeDao {
     }
 
     @Override
-    public void save(SimpleRecipe simpleRecipe) {
-        delete(simpleRecipe.getId());
-        getAllAsSet().add(simpleRecipe);
+    public void save(Context context, SimpleRecipe simpleRecipe) {
+        delete(context, simpleRecipe.getId());
+        getAllAsSet(context).add(simpleRecipe);
         saveAll();
     }
 
     @Override
-    public int getNextId() {
-        Iterator<SimpleRecipe> recipeIterator = getAllAsSet().iterator();
+    public int getNextId(Context context) {
+        Iterator<SimpleRecipe> recipeIterator = getAllAsSet(context).iterator();
 
         int recipeAId;
         while (recipeIterator.hasNext()) {
@@ -109,15 +116,15 @@ public class RecipeDaoJava implements RecipeDao {
     }
 
     @Override
-    public int[] deleteAll(RecipeGroup[] recipeGroups) {
-        List<SimpleRecipe> toRemove = getAll()
+    public int[] deleteAll(Context context, RecipeGroup[] recipeGroups) {
+        List<SimpleRecipe> toRemove = getAll(context)
                 .stream()
                 .filter(recipe -> recipe.isIt(recipeGroups))
                 .collect(Collectors.toList());
 
         int numberRemoved = toRemove.size();
         if (numberRemoved > 0) {
-            getAll().removeAll(toRemove);
+            getAll(context).removeAll(toRemove);
             saveAll();
         }
         return toRemove.stream().mapToInt(SimpleRecipe::getId).toArray();

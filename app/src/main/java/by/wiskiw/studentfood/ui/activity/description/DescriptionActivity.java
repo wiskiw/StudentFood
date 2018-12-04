@@ -17,6 +17,8 @@ import com.hannesdorfmann.mosby3.mvp.MvpActivity;
 import org.jetbrains.annotations.NotNull;
 
 import by.wiskiw.studentfood.R;
+import by.wiskiw.studentfood.data.db.repository.FavoriteRecipeRepositoryKt;
+import by.wiskiw.studentfood.data.db.repository.StaticRecipeRepositoryKt;
 import by.wiskiw.studentfood.di.FoodApp;
 import by.wiskiw.studentfood.mvp.model.CookStep;
 import by.wiskiw.studentfood.mvp.model.RecipeGroup;
@@ -43,7 +45,10 @@ public class DescriptionActivity extends MvpActivity<DescriptionView, Descriptio
     @NonNull
     @Override
     public DescriptionPresenter createPresenter() {
-        return new DescriptionPresenter();
+        return new DescriptionPresenter(
+                new StaticRecipeRepositoryKt(this),
+                new FavoriteRecipeRepositoryKt(this)
+        );
     }
 
     public static void putArgs(Intent intent, RecipeGroup group, int recipeId, int listPosition) {

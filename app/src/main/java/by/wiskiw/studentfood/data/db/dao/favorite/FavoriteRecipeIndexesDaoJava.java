@@ -1,22 +1,34 @@
 package by.wiskiw.studentfood.data.db.dao.favorite;
 
+import android.content.Context;
+
 import java.util.HashSet;
 import java.util.Set;
 
+import by.wiskiw.studentfood.data.db.DatabaseHolder;
 import io.paperdb.Book;
 
 public class FavoriteRecipeIndexesDaoJava implements FavoriteRecipeIndexesDao {
+
+    private static FavoriteRecipeIndexesDaoJava instance;
 
     private Book book;
     private static final String TAG_FAVORITE_RECIPES = "favorite-recipes";
     private Set<Integer> favoriteRecipeIds;
 
-    public FavoriteRecipeIndexesDaoJava(Book book) {
-        this.book = book;
+    public static FavoriteRecipeIndexesDaoJava getInstance() {
+        if (instance == null) {
+            instance = new FavoriteRecipeIndexesDaoJava();
+        }
+        return instance;
+    }
+
+    private FavoriteRecipeIndexesDaoJava() {
+        this.book = DatabaseHolder.getDatabase();
     }
 
     @Override
-    public Set<Integer> getIds() {
+    public Set<Integer> getIds(Context context) {
         if (favoriteRecipeIds == null) {
             favoriteRecipeIds = book.read(TAG_FAVORITE_RECIPES, new HashSet<>());
         }
@@ -30,14 +42,14 @@ public class FavoriteRecipeIndexesDaoJava implements FavoriteRecipeIndexesDao {
     }
 
     @Override
-    public boolean putId(int id) {
-        return onSetUpdate(getIds().add(id));
+    public boolean putId(Context context, int id) {
+        return onSetUpdate(getIds(context).add(id));
     }
 
 
     @Override
-    public boolean removeId(int id) {
-        return onSetUpdate(getIds().remove(id));
+    public boolean removeId(Context context, int id) {
+        return onSetUpdate(getIds(context).remove(id));
     }
 
     private boolean onSetUpdate(boolean r) {

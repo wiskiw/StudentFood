@@ -1,4 +1,4 @@
-package by.wiskiw.studentfood.data.db.dao.dummy;
+package by.wiskiw.studentfood.data.db.dummy;
 
 import android.content.Context;
 

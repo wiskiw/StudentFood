@@ -1,37 +1,39 @@
 package by.wiskiw.studentfood.data.db.repository
 
-import by.wiskiw.studentfood.data.db.DaoProvider
+import android.content.Context
+import by.wiskiw.studentfood.data.db.dao.mine.MyRecipeIndexesDaoJava
+import by.wiskiw.studentfood.data.db.dao.recipe.RecipeDaoKt
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe
 
-object MyRecipeRepositoryKt {
+class MyRecipeRepositoryKt(private val context: Context) {
 
-    private val dbProvider by lazy { DaoProvider.getInstance() }
+    private val recipeDao = RecipeDaoKt
+    private val myRecipeIndexesDao = MyRecipeIndexesDaoJava.getInstance()
 
     public fun getAllMine(sortBy: (recipe: SimpleRecipe) -> String): List<SimpleRecipe> {
-        return getAllMine()
+        return getAllMine(context)
                 .asSequence()
                 .sortedBy { sortBy.invoke(it) }
                 .toList()
     }
 
-    public fun getAllMine(): List<SimpleRecipe> {
-        val idList = dbProvider.myRecipeIndexesDao.ids
-        return dbProvider.recipeDao.all.filter { idList.contains(it.id) }
+    public fun getAllMine(context: Context): List<SimpleRecipe> {
+        val idList = myRecipeIndexesDao.ids
+        return recipeDao.getAll(context).filter { idList.contains(it.id) }
     }
 
     public fun saveToMy(simpleRecipe: SimpleRecipe) {
-        dbProvider.myRecipeIndexesDao.putId(simpleRecipe.id)
-        dbProvider.recipeDao.save(simpleRecipe)
+        myRecipeIndexesDao.putId(simpleRecipe.id)
+        recipeDao.save(context, simpleRecipe)
     }
 
     public fun removeFromMy(recipeId: Int) {
-        dbProvider.myRecipeIndexesDao.removeId(recipeId)
+        myRecipeIndexesDao.removeId(recipeId)
     }
 
     public fun delete(recipeId: Int) {
         removeFromMy(recipeId)
-        dbProvider.recipeDao.delete(recipeId)
+        recipeDao.delete(context, recipeId)
     }
-
 
 }

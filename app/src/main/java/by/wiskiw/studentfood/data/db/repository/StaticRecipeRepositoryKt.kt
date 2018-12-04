@@ -1,14 +1,15 @@
 package by.wiskiw.studentfood.data.db.repository
 
+import android.content.Context
 import android.support.annotation.NonNull
-import by.wiskiw.studentfood.data.db.DaoProvider
 import by.wiskiw.studentfood.data.db.Response
+import by.wiskiw.studentfood.data.db.dao.recipe.RecipeDaoKt
 import by.wiskiw.studentfood.mvp.model.RecipeGroup
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe
 
-object StaticRecipeRepositoryKt {
+class StaticRecipeRepositoryKt(val context: Context) {
 
-    private val dbProvider by lazy { DaoProvider.getInstance() }
+    private val recipeDao = RecipeDaoKt
 
     @NonNull
     public fun getAll(group: RecipeGroup? = null,
@@ -21,16 +22,16 @@ object StaticRecipeRepositoryKt {
 
     @NonNull
     public fun getAll(group: RecipeGroup? = null): List<SimpleRecipe> {
-        return dbProvider.recipeDao.all.filter { group == null || it.isIt(group) }
+        return recipeDao.getAll(context).filter { group == null || it.isIt(group) }
     }
 
     public fun save(simpleRecipe: SimpleRecipe) {
-        dbProvider.recipeDao.save(simpleRecipe)
+        recipeDao.save(context, simpleRecipe)
     }
 
     @NonNull
     public fun get(recipeId: Int): Response<SimpleRecipe> {
-        return dbProvider.recipeDao.get(recipeId)
+        return recipeDao.get(context, recipeId)
     }
 
 }

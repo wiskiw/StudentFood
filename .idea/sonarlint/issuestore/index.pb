@@ -57,3 +57,15 @@ Japp/src/main/java/by/wiskiw/studentfood/ui/activity/main/MainActivity.java,6\0
 Xapp/src/main/java/by/wiskiw/studentfood/ui/activity/description/DescriptionActivity.java,4\4\44d755c144f00522fa9e95f582c481e3cc5da09b
 o
 ?app/src/main/java/by/wiskiw/studentfood/mvp/model/CookStep.java,1\7\1705c123e383b84638f7c516879301a14e226159
+
+Oapp/src/main/java/by/wiskiw/studentfood/mvp/presenter/DescriptionPresenter.java,d\2\d22147744f855124c4474db6e0b3f7ad1157229d
+u
+Eapp/src/main/java/by/wiskiw/studentfood/mvp/view/DescriptionView.java,9\1\9166d588337d9093f966313dbc2709dfcd080413
+€
+Papp/src/main/java/by/wiskiw/studentfood/data/db/dao/dummy/DummyRecipeParser.java,f\8\f8636cd716fb5be61ab0e8de34792df742f2f99e
+€
+Papp/src/main/java/by/wiskiw/studentfood/data/db/dao/dummy/DummyRecipeReader.java,c\0\c0343611a172d1becb722a7326e9b902eedff39d
+<
+build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
+A
+gradle.properties,2\a\2afbb999f001938c88fa43fc2ef52abf0f8213e4

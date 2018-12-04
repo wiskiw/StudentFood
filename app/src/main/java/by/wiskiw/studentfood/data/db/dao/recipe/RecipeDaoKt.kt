@@ -1,21 +1,27 @@
 package by.wiskiw.studentfood.data.db.dao.recipe
 
 import android.content.Context
+import by.wiskiw.studentfood.data.db.DatabaseHolder
 import by.wiskiw.studentfood.data.db.Response
-import by.wiskiw.studentfood.data.db.dao.dummy.DummyRecipeReader
+import by.wiskiw.studentfood.data.db.dummy.DummyRecipeReader
 import by.wiskiw.studentfood.data.db.exception.RecordByIdNotFound
 import by.wiskiw.studentfood.mvp.model.RecipeGroup
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe
 import io.paperdb.Book
 
-class RecipeDaoKt(private val context: Context, private val book: Book) : RecipeDao {
+object RecipeDaoKt : RecipeDao {
 
-    companion object {
-        private const val TAG_RECIPES = "recipes"
-    }
+    private const val TAG_RECIPES = "recipes"
 
-    private val recipeList: MutableSet<SimpleRecipe> by lazy {
-        return@lazy book.read<MutableSet<SimpleRecipe>>(TAG_RECIPES, HashSet()).let {
+    private val book: Book = DatabaseHolder.getDatabase()
+
+    private lateinit var recipeSet: MutableSet<SimpleRecipe>
+
+    override fun getAll(context: Context) = getSet(context).toList()
+
+    private fun getSet(context: Context): MutableSet<SimpleRecipe> {
+        recipeSet = RecipeDaoKt.book.read<MutableSet<SimpleRecipe>>(
+                RecipeDaoKt.TAG_RECIPES, HashSet()).let {
             if (it.isEmpty()) {
                 val dummyRecipeReader = DummyRecipeReader(context)
                 dummyRecipeReader.read()
@@ -23,34 +29,33 @@ class RecipeDaoKt(private val context: Context, private val book: Book) : Recipe
                 it
             }
         }
+        return recipeSet
     }
 
-    override fun getAll() = recipeList.toList()
-
-    private fun saveAll() {
-        book.write(TAG_RECIPES, recipeList)
+    private fun saveAll(context: Context) {
+        book.write(TAG_RECIPES, getSet(context))
     }
 
-    override operator fun get(id: Int): Response<SimpleRecipe> {
-        return recipeList.firstOrNull { it.id == id }
+    override operator fun get(context: Context, id: Int): Response<SimpleRecipe> {
+        return getSet(context).firstOrNull { it.id == id }
                 ?.let { Response(it) } ?: Response(RecordByIdNotFound(id))
     }
 
-    override fun delete(id: Int): Response<Boolean> {
-        return if (recipeList.removeIf { it.id == id }) {
-            saveAll()
+    override fun delete(context: Context, id: Int): Response<Boolean> {
+        return if (getSet(context).removeIf { it.id == id }) {
+            saveAll(context)
             Response(true)
         } else Response(false)
     }
 
-    override fun save(simpleRecipe: SimpleRecipe) {
-        recipeList.removeIf { it.id == simpleRecipe.id }
-        recipeList.add(simpleRecipe)
-        saveAll()
+    override fun save(context: Context, simpleRecipe: SimpleRecipe) {
+        getSet(context).removeIf { it.id == simpleRecipe.id }
+        getSet(context).add(simpleRecipe)
+        saveAll(context)
     }
 
-    override fun getNextId(): Int {
-        val recipeIterator = all.iterator()
+    override fun getNextId(context: Context): Int {
+        val recipeIterator = getAll(context).iterator()
 
         var recipeAId: Int
         while (recipeIterator.hasNext()) {
@@ -67,12 +72,12 @@ class RecipeDaoKt(private val context: Context, private val book: Book) : Recipe
     }
 
 
-    override fun deleteAll(vararg recipeGroup: RecipeGroup): IntArray {
-        val toRemove = recipeList.filter { it.isIt(recipeGroup) }
+    override fun deleteAll(context: Context, vararg recipeGroup: RecipeGroup): IntArray {
+        val toRemove = getSet(context).filter { it.isIt(recipeGroup) }
         val numberRemoved = toRemove.size
         if (numberRemoved > 0) {
-            recipeList.removeAll(toRemove)
-            saveAll()
+            getSet(context).removeAll(toRemove)
+            saveAll(context)
         }
         return toRemove.map { it.id }.toIntArray()
     }

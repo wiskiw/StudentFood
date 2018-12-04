@@ -14,6 +14,7 @@ import by.wiskiw.studentfood.mvp.model.RecipeCategory;
 import by.wiskiw.studentfood.mvp.model.RecipeGroup;
 import by.wiskiw.studentfood.mvp.presenter.MainPresenter;
 import by.wiskiw.studentfood.mvp.view.MainView;
+import by.wiskiw.studentfood.ui.activity.description.DescriptionActivity;
 import by.wiskiw.studentfood.ui.activity.list.FavoriteListActivity;
 import by.wiskiw.studentfood.ui.activity.list.ListActivity;
 import by.wiskiw.studentfood.ui.activity.list.StaticCategoryListActivity;
@@ -44,6 +45,8 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         categoryFavoriteCv = findViewById(R.id.category_favorite_card_view);
 
         setupButtonClickListeners();
+
+        startActivity(new Intent(this, DescriptionActivity.class));
     }
 
     private void setupButtonClickListeners() {

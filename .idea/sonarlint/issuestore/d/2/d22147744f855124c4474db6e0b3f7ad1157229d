@@ -1,0 +1,5 @@
+
+Ksquid:S1068"*Remove this unused "recipe" private field.(Ô‚ÛÊûÿÿÿÿ8þ®Ë¥÷,
+fsquid:HiddenFieldCheck":Rename "recipe" which hides the field declared at line 17.(’ú“öùÿÿÿÿ8³ÖÍ¥÷,
+xsquid:S1450"\Remove the "recipeListPos" field and declare it as a local variable in the relevant methods.(ŽÇÂ‚8Ê¿™¥÷,
+Msquid:S1068"1Remove this unused "recipeListPos" private field.(ŽÇÂ‚8Ê¿™¥÷,
