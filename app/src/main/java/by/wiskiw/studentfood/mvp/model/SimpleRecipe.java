@@ -4,6 +4,8 @@ import android.support.annotation.Nullable;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -82,6 +84,20 @@ public class SimpleRecipe {
 
     public Set<RecipeGroup> getGroups() {
         return groups;
+    }
+
+    public Long getCookTime() {
+        long time = 0L;
+        for (CookStep step : steps) {
+            time += step.getTime();
+        }
+        return time;
+    }
+
+    public String getCookTimeString() {
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTimeInMillis(getCookTime());
+        return calendar.get(GregorianCalendar.MINUTE) + " min";
     }
 
     @Override

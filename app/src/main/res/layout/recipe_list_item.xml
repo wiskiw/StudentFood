@@ -52,7 +52,7 @@
 
 
         <TextView
-            android:id="@+id/cocking_time_text_view"
+            android:id="@+id/cock_time_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="bottom"
