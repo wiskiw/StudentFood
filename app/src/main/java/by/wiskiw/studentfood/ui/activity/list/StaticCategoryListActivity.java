@@ -8,8 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import by.wiskiw.studentfood.R;
 import by.wiskiw.studentfood.data.db.repository.StaticRecipeRepositoryKt;
 import by.wiskiw.studentfood.mvp.model.RecipeCategory;
+import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
 import by.wiskiw.studentfood.mvp.presenter.list.StaticCategoryListPresenter;
 import by.wiskiw.studentfood.mvp.view.list.StaticCategoryListView;
+import by.wiskiw.studentfood.ui.activity.description.DescriptionActivity;
 
 public class StaticCategoryListActivity extends ListActivity<StaticCategoryListView, StaticCategoryListPresenter>
         implements StaticCategoryListView {
@@ -35,6 +37,7 @@ public class StaticCategoryListActivity extends ListActivity<StaticCategoryListV
 
         RecyclerView recipesRv = findViewById(R.id.recipes_recycler_view);
         super.initRecyclerView(recipesRv);
+        super.enableListClickListener(true);
     }
 
     @NonNull
@@ -49,5 +52,13 @@ public class StaticCategoryListActivity extends ListActivity<StaticCategoryListV
             staticRecipeRepository = new StaticRecipeRepositoryKt(this);
         }
         return staticRecipeRepository;
+    }
+
+    @Override
+    public void onListItemClick(int listPos, SimpleRecipe recipe) {
+        super.onListItemClick(listPos, recipe);
+        Intent intent = new Intent(this, DescriptionActivity.class);
+        DescriptionActivity.putArgs(intent, recipe.getId(), listPos);
+        startActivity(intent);
     }
 }

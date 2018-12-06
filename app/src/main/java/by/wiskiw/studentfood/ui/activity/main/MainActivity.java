@@ -45,8 +45,6 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
 
         setupButtonClickListeners();
 
-        // 1TODO debug only
-        //startActivity(new Intent(this, DescriptionActivity.class));
     }
 
     private void setupButtonClickListeners() {

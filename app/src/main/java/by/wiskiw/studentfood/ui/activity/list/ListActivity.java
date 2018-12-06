@@ -11,10 +11,11 @@ import java.util.List;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
 import by.wiskiw.studentfood.mvp.presenter.list.CategoryListPresenter;
 import by.wiskiw.studentfood.mvp.view.list.CategoryListView;
+import by.wiskiw.studentfood.ui.adapter.ListItemOnClickListener;
 import by.wiskiw.studentfood.ui.adapter.recipe.main.RecipeMainListAdapter;
 
 public abstract class ListActivity<V extends CategoryListView, P extends CategoryListPresenter<V>>
-        extends MvpActivity<V, P> implements CategoryListView {
+        extends MvpActivity<V, P> implements CategoryListView, ListItemOnClickListener<SimpleRecipe> {
 
     private RecipeMainListAdapter adapter;
 
@@ -22,6 +23,14 @@ public abstract class ListActivity<V extends CategoryListView, P extends Categor
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(getAdapter());
+    }
+
+    protected void enableListClickListener(boolean enable){
+        if (enable){
+            getAdapter().setOnClickListener(this);
+        } else {
+            getAdapter().setOnClickListener(null);
+        }
     }
 
     protected RecipeMainListAdapter getAdapter() {
@@ -36,4 +45,14 @@ public abstract class ListActivity<V extends CategoryListView, P extends Categor
         getAdapter().setAll(recipes);
     }
 
+
+    @Override
+    public void onListItemClick(int listPos, SimpleRecipe item) {
+
+    }
+
+    @Override
+    public boolean onListItemLongClick(int listPos, SimpleRecipe item) {
+        return false;
+    }
 }

@@ -21,7 +21,6 @@ import by.wiskiw.studentfood.data.db.repository.FavoriteRecipeRepositoryKt;
 import by.wiskiw.studentfood.data.db.repository.StaticRecipeRepositoryKt;
 import by.wiskiw.studentfood.di.FoodApp;
 import by.wiskiw.studentfood.mvp.model.CookStep;
-import by.wiskiw.studentfood.mvp.model.RecipeGroup;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
 import by.wiskiw.studentfood.mvp.presenter.DescriptionPresenter;
 import by.wiskiw.studentfood.mvp.view.DescriptionView;
@@ -31,7 +30,6 @@ public class DescriptionActivity extends MvpActivity<DescriptionView, Descriptio
 
     private static final String INTENT_TAG_RECIPE_ID = "recipe-id";
     private static final String INTENT_TAG_RECIPE_LIST_POSITION = "recipe-list-pos";
-    private static final String INTENT_TAG_RECIPE_GROUP = "recipe-group";
 
 
     /*
@@ -57,8 +55,7 @@ public class DescriptionActivity extends MvpActivity<DescriptionView, Descriptio
         return new DescriptionPresenter();
     }
 
-    public static void putArgs(Intent intent, RecipeGroup group, int recipeId, int listPosition) {
-        intent.putExtra(INTENT_TAG_RECIPE_GROUP, group);
+    public static void putArgs(Intent intent, int recipeId, int listPosition) {
         intent.putExtra(INTENT_TAG_RECIPE_ID, recipeId);
         intent.putExtra(INTENT_TAG_RECIPE_LIST_POSITION, listPosition);
     }
@@ -67,9 +64,8 @@ public class DescriptionActivity extends MvpActivity<DescriptionView, Descriptio
         Intent args = getIntent();
         int recipeId = args.getIntExtra(INTENT_TAG_RECIPE_ID, -1);
         int recipeListPos = args.getIntExtra(INTENT_TAG_RECIPE_LIST_POSITION, -1);
-        RecipeGroup recipeGroup = (RecipeGroup) args.getSerializableExtra(INTENT_TAG_RECIPE_GROUP);
-        if (recipeId < 0 || recipeListPos < 0 || recipeGroup == null) {
-            Exception ex = new IllegalArgumentException("You must pass recipe Id, recipe list position and recipeGroup " +
+        if (recipeId < 0 || recipeListPos < 0) {
+            Exception ex = new IllegalArgumentException("You must pass recipe Id and recipe list position " +
                     "to DescriptionActivity!");
             Log.e(FoodApp.LOG_TAG, "Wrong activity args:" +
                             " recipeId " + recipeId
