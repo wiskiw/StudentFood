@@ -2,24 +2,66 @@
 <recipes>
     <recipe id="1">
         <title>Title 1</title>
-        <description>Title 1</description>
-
-        <groups>
-            <group>static</group>
-            <group>mine</group>
-        </groups>
+        <description>Desc 1</description>
+        <mine>false</mine>
+        <favorite>false</favorite>
+        <categories>
+            <category>CATEGORY_A</category>
+            <category>CATEGORY_B</category>
+        </categories>
 
         <steps>
             <cookStep>
                 <text>Cook step text</text>
                 <timeLong>122200</timeLong>
-
             </cookStep>
-
             <cookStep>
                 <text>Cook step 2 text</text>
                 <timeLong>1000</timeLong>
             </cookStep>
         </steps>
     </recipe>
+
+    <recipe id="2">
+        <title>Title 2</title>
+        <description>Desc 2</description>
+        <mine>true</mine>
+        <favorite>false</favorite>
+        <categories>
+            <category>CATEGORY_B</category>
+        </categories>
+
+        <steps>
+            <cookStep>
+                <text>Cook step text</text>
+                <timeLong>10000</timeLong>
+            </cookStep>
+            <cookStep>
+                <text>Cook step 23123 text</text>
+                <timeLong>1000</timeLong>
+            </cookStep>
+        </steps>
+    </recipe>
+
+    <recipe id="3">
+        <title>Recipe 3</title>
+        <description>Recipe Desc 3</description>
+        <mine>true</mine>
+        <favorite>true</favorite>
+        <categories>
+            <category>CATEGORY_B</category>
+        </categories>
+
+        <steps>
+            <cookStep>
+                <text>Cook step text</text>
+                <timeLong>1022000</timeLong>
+            </cookStep>
+            <cookStep>
+                <text>Cook asfsfp 23123 text</text>
+                <timeLong>1000</timeLong>
+            </cookStep>
+        </steps>
+    </recipe>
+
 </recipes>

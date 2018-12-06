@@ -98,7 +98,7 @@ public class RecipeDaoJava implements RecipeDao {
     }
 
     @Override
-    public int getNextId(Context context) {
+    public int getNextId(@NonNull Context context) {
         Iterator<SimpleRecipe> recipeIterator = getAllAsSet(context).iterator();
 
         int recipeAId;
@@ -116,11 +116,38 @@ public class RecipeDaoJava implements RecipeDao {
     }
 
     @Override
-    public int[] deleteAll(Context context, RecipeGroup[] recipeGroups) {
+    public int[] deleteAllMy(@NonNull Context context) {
         List<SimpleRecipe> toRemove = getAll(context)
                 .stream()
-                .filter(recipe -> recipe.isIt(recipeGroups))
+                .filter(SimpleRecipe::isMine)
                 .collect(Collectors.toList());
+
+        int numberRemoved = toRemove.size();
+        if (numberRemoved > 0) {
+            getAll(context).removeAll(toRemove);
+            saveAll();
+        }
+        return toRemove.stream().mapToInt(SimpleRecipe::getId).toArray();
+    }
+
+    @Override
+    public int[] deleteAllFavorites(@NonNull Context context) {
+        List<SimpleRecipe> toRemove = getAll(context)
+                .stream()
+                .filter(SimpleRecipe::isFavorite)
+                .collect(Collectors.toList());
+
+        int numberRemoved = toRemove.size();
+        if (numberRemoved > 0) {
+            getAll(context).removeAll(toRemove);
+            saveAll();
+        }
+        return toRemove.stream().mapToInt(SimpleRecipe::getId).toArray();
+    }
+
+    @Override
+    public int[] deleteAll(@NonNull Context context) {
+        List<SimpleRecipe> toRemove = getAll(context);
 
         int numberRemoved = toRemove.size();
         if (numberRemoved > 0) {

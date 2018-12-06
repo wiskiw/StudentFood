@@ -1,22 +1,39 @@
 package by.wiskiw.studentfood.ui.activity.list;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
-import by.wiskiw.studentfood.mvp.model.RecipeCategory;
+import com.hannesdorfmann.mosby3.mvp.MvpActivity;
 
-public abstract class ListActivity extends AppCompatActivity {
+import java.util.List;
 
-    private static final String INTENT_TAG_RECIPE_CAT = "recipe-category";
+import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
+import by.wiskiw.studentfood.mvp.presenter.list.CategoryListPresenter;
+import by.wiskiw.studentfood.mvp.view.list.CategoryListView;
+import by.wiskiw.studentfood.ui.adapter.recipe.main.RecipeMainListAdapter;
 
-    public static void putParams(Intent intent, RecipeCategory category) {
-        if (intent != null) {
-            intent.putExtra(INTENT_TAG_RECIPE_CAT, category);
-        }
+public abstract class ListActivity<V extends CategoryListView, P extends CategoryListPresenter<V>>
+        extends MvpActivity<V, P> implements CategoryListView {
+
+    private RecipeMainListAdapter adapter;
+
+    protected void initRecyclerView(RecyclerView recyclerView) {
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(getAdapter());
     }
 
-    protected RecipeCategory getRecipeCategory(Intent args) {
-        return (RecipeCategory) args.getSerializableExtra(INTENT_TAG_RECIPE_CAT);
+    protected RecipeMainListAdapter getAdapter() {
+        if (adapter == null) {
+            adapter = new RecipeMainListAdapter(this);
+        }
+        return adapter;
+    }
+
+    @Override
+    public void showRecipes(List<SimpleRecipe> recipes) {
+        getAdapter().setAll(recipes);
     }
 
 }

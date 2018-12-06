@@ -2,42 +2,33 @@ package by.wiskiw.studentfood.ui.adapter.recipe.main;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import by.wiskiw.studentfood.R;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
+import by.wiskiw.studentfood.utils.diff.util.DiffCalculatorListAdapter;
 
-public class RecipeMainListAdapter extends RecyclerView.Adapter<RecipeMainViewHolder> {
+public class RecipeMainListAdapter extends DiffCalculatorListAdapter<SimpleRecipe, RecipeMainViewHolder> {
 
     private Context context;
-    private List<SimpleRecipe> recipeList = new ArrayList<>();
 
     public RecipeMainListAdapter(Context context) {
         this.context = context;
     }
 
-    public void addAll(List<SimpleRecipe> list) {
-        // обработать через diff util
-        this.recipeList.addAll(list);
-    }
-
     @NonNull
     @Override
     public RecipeMainViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        // todo fix onCreateViewHolder
-        return new RecipeMainViewHolder();
+        View mView = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.recipe_list_item, viewGroup, false);
+        return new RecipeMainViewHolder(mView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecipeMainViewHolder viewHolder, int i) {
-        viewHolder.bind(recipeList.get(i));
+        viewHolder.bind(list.get(i));
     }
 
-    @Override
-    public int getItemCount() {
-        return recipeList.size();
-    }
 }

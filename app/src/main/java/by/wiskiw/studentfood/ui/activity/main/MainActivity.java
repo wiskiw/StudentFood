@@ -14,7 +14,6 @@ import by.wiskiw.studentfood.mvp.model.RecipeCategory;
 import by.wiskiw.studentfood.mvp.model.RecipeGroup;
 import by.wiskiw.studentfood.mvp.presenter.MainPresenter;
 import by.wiskiw.studentfood.mvp.view.MainView;
-import by.wiskiw.studentfood.ui.activity.description.DescriptionActivity;
 import by.wiskiw.studentfood.ui.activity.list.FavoriteListActivity;
 import by.wiskiw.studentfood.ui.activity.list.ListActivity;
 import by.wiskiw.studentfood.ui.activity.list.StaticCategoryListActivity;
@@ -46,7 +45,8 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
 
         setupButtonClickListeners();
 
-        startActivity(new Intent(this, DescriptionActivity.class));
+        // 1TODO debug only
+        //startActivity(new Intent(this, DescriptionActivity.class));
     }
 
     private void setupButtonClickListeners() {
@@ -68,25 +68,24 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
 
     @Override
     public void startListActivity(RecipeGroup group, @Nullable RecipeCategory recipeCategory) {
-        Class activityClass = null;
+        Intent intent = null;
         switch (group) {
             case STATIC:
-                activityClass = StaticCategoryListActivity.class;
+                intent = new Intent(this, StaticCategoryListActivity.class);
+                if (recipeCategory != null) {
+                    StaticCategoryListActivity.putParams(intent, recipeCategory);
+                }
                 break;
             case MINE:
-                activityClass = ListActivity.class;
+                intent = new Intent(this, ListActivity.class);
                 break;
             case FAVORITE:
-                activityClass = FavoriteListActivity.class;
+                intent = new Intent(this, FavoriteListActivity.class);
                 break;
             default:
                 if (BuildConfig.DEBUG) throw new IllegalStateException("Process all groups!");
         }
 
-        Intent intent = new Intent(this, activityClass);
-        if (recipeCategory != null) {
-            ListActivity.putParams(intent, recipeCategory);
-        }
         startActivity(intent);
     }
 }

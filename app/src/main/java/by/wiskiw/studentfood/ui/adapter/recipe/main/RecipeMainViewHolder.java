@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import by.wiskiw.studentfood.R;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
 import by.wiskiw.studentfood.ui.adapter.SimpleViewHolder;
 import by.wiskiw.studentfood.utils.RecipeTimeUtil;

@@ -11,14 +11,20 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class SimpleRecipe {
+import by.wiskiw.studentfood.utils.diff.util.DiffUtilItem;
+
+public class SimpleRecipe implements DiffUtilItem {
 
     private int id;
 
     private String title = "";
     private String description = "";
     private List<CookStep> steps = new ArrayList<>();
-    private Set<RecipeGroup> groups = new HashSet<>();
+    private Set<RecipeCategory> categories = new HashSet<>();
+
+    private boolean mine = false;
+    private boolean favorite = false;
+
 
     @Nullable
     private File headerImageFile;
@@ -65,25 +71,12 @@ public class SimpleRecipe {
         steps.add(cookStep);
     }
 
-    public void addGroup(RecipeGroup recipeGroup) {
-        groups.add(recipeGroup);
+    public void addCategory(RecipeCategory category) {
+        categories.add(category);
     }
 
-    public boolean isIt(RecipeGroup recipeGroup) {
-        return groups.contains(recipeGroup);
-    }
-
-    public boolean isIt(RecipeGroup[] recipeGroups) {
-        for (RecipeGroup group : recipeGroups) {
-            if (isIt(group)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public Set<RecipeGroup> getGroups() {
-        return groups;
+    public boolean isIt(RecipeCategory category) {
+        return categories.contains(category);
     }
 
     public Long getCookTime() {
@@ -100,6 +93,22 @@ public class SimpleRecipe {
         return calendar.get(GregorianCalendar.MINUTE) + " min";
     }
 
+    public boolean isMine() {
+        return mine;
+    }
+
+    public void setMine(boolean mine) {
+        this.mine = mine;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
     @Override
     public String toString() {
         String cookSteps = steps.stream()
@@ -110,7 +119,8 @@ public class SimpleRecipe {
                 "title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", steps=" + cookSteps +
-                ", groups=" + groups +
+                ", mine=" + mine +
+                ", favorite=" + favorite +
                 ", headerImageFile=" + headerImageFile +
                 '}';
     }

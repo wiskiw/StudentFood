@@ -35,8 +35,6 @@ m
 Rapp/src/main/java/by/wiskiw/studentfood/data/db/repository/MyRecipeRepositoryKt.kt,5\0\504e6fb60873513c1c74ba50b33cf101e1c3de2c
 ˆ
 Xapp/src/main/java/by/wiskiw/studentfood/data/db/repository/FavoriteRecipeRepositoryKt.kt,7\1\714848f4b8f12a1a7441b555c8da8f6ae836556e
-p
-@app/src/main/java/by/wiskiw/studentfood/data/db/DaoProvider.java,b\d\bdaf5fc0e632429153f8bd52ff1b7e1fb91597e1
 †
 Vapp/src/main/java/by/wiskiw/studentfood/data/db/repository/StaticRecipeRepositoryKt.kt,d\b\dbb67440a36fe13d11fbeeaa441d3429b8fc561d
 s
@@ -61,10 +59,6 @@ o
 Oapp/src/main/java/by/wiskiw/studentfood/mvp/presenter/DescriptionPresenter.java,d\2\d22147744f855124c4474db6e0b3f7ad1157229d
 u
 Eapp/src/main/java/by/wiskiw/studentfood/mvp/view/DescriptionView.java,9\1\9166d588337d9093f966313dbc2709dfcd080413
-€
-Papp/src/main/java/by/wiskiw/studentfood/data/db/dao/dummy/DummyRecipeParser.java,f\8\f8636cd716fb5be61ab0e8de34792df742f2f99e
-€
-Papp/src/main/java/by/wiskiw/studentfood/data/db/dao/dummy/DummyRecipeReader.java,c\0\c0343611a172d1becb722a7326e9b902eedff39d
 <
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
 A

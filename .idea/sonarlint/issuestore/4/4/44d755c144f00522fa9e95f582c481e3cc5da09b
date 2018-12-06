@@ -1,12 +1,12 @@
 
-Hsquid:S1068",Remove this unused "headerIv" private field.(ˆæ¿É8íå—¥÷,
-ssquid:S1450"WRemove the "headerIv" field and declare it as a local variable in the relevant methods.(ˆæ¿É8íå—¥÷,
-osquid:MaximumInheritanceDepth"<This class has 6 parents which is greater than 5 authorized.(ÖÞ®Üýÿÿÿÿ8íå—¥÷,
-Osquid:S1481".Remove this unused "imageView" local variable.(Ò³å«ýÿÿÿÿ8„Ø¥¥÷,
-Hsquid:S1068"-Remove this unused "action2Iv" private field.(Øˆ–Y8íå—¥÷,
-ssquid:S1450"XRemove the "action2Iv" field and declare it as a local variable in the relevant methods.(Øˆ–Y8íå—¥÷,
-€squid:S1450"_Remove the "addToFavoriteBtn" field and declare it as a local variable in the relevant methods.(÷Î‚Õùÿÿÿÿ8„ÀÔ¥÷,
-Nsquid:S1135"2Complete the task associated to this TODO comment.(Ã©‚8„Ø¥¥÷,
-Nsquid:S1068"-Remove this unused "action3Iv" private field.(Ÿ‘šøüÿÿÿÿ8íå—¥÷,
-ysquid:S1450"XRemove the "action3Iv" field and declare it as a local variable in the relevant methods.(Ÿ‘šøüÿÿÿÿ8íå—¥÷,
-Ssquid:S1135"2Complete the task associated to this TODO comment.(Äƒ«‚úÿÿÿÿ8„Ø¥¥÷,
+Nsquid:S1068"-Remove this unused "action3Iv" private field.(Ÿ‘šøüÿÿÿÿ8‹€ÁÈ÷,
+Hsquid:S1068"-Remove this unused "action2Iv" private field.(Øˆ–Y8‹€ÁÈ÷,
+osquid:MaximumInheritanceDepth"<This class has 6 parents which is greater than 5 authorized.(ÖÞ®Üýÿÿÿÿ8‹€ÁÈ÷,
+ssquid:S1450"XRemove the "action2Iv" field and declare it as a local variable in the relevant methods.(Øˆ–Y8‹€ÁÈ÷,
+Ssquid:S1135"2Complete the task associated to this TODO comment.(Äƒ«‚úÿÿÿÿ8‹€ÁÈ÷,
+Hsquid:S1068",Remove this unused "headerIv" private field.(ˆæ¿É8‹€ÁÈ÷,
+ysquid:S1450"XRemove the "action3Iv" field and declare it as a local variable in the relevant methods.(Ÿ‘šøüÿÿÿÿ8‹€ÁÈ÷,
+Nsquid:S1135"2Complete the task associated to this TODO comment.(Ã©‚8‹€ÁÈ÷,
+ssquid:S1450"WRemove the "headerIv" field and declare it as a local variable in the relevant methods.(ˆæ¿É8‹€ÁÈ÷,
+Osquid:S1481".Remove this unused "imageView" local variable.(Ò³å«ýÿÿÿÿ8‹€ÁÈ÷,
+€squid:S1450"_Remove the "addToFavoriteBtn" field and declare it as a local variable in the relevant methods.(÷Î‚Õùÿÿÿÿ8‹€ÁÈ÷,

@@ -11,14 +11,14 @@ import java.util.Set;
 import by.wiskiw.studentfood.BuildConfig;
 import by.wiskiw.studentfood.di.FoodApp;
 import by.wiskiw.studentfood.mvp.model.CookStep;
-import by.wiskiw.studentfood.mvp.model.RecipeGroup;
+import by.wiskiw.studentfood.mvp.model.RecipeCategory;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
 
 class DummyRecipeParser {
 
     private static final String XML_TAG_RECIPE = "recipe";
     private static final String XML_TAG_COOK_STEP = "cookStep";
-    private static final String XML_TAG_GROUP = "group";
+    private static final String XML_TAG_CATEGORY = "category";
 
     private Set<SimpleRecipe> recipeSet = new HashSet<>();
 
@@ -35,8 +35,8 @@ class DummyRecipeParser {
         return Long.parseLong(longStr);
     }
 
-    private RecipeGroup parseRecipeGroup(String strValue) {
-        return RecipeGroup.valueOf(strValue.trim().toUpperCase());
+    private RecipeCategory parseRecipeCategory(String strValue) {
+        return RecipeCategory.valueOf(strValue.trim().toUpperCase());
     }
 
     boolean parse(XmlPullParser xpp) {
@@ -75,7 +75,7 @@ class DummyRecipeParser {
                         if (simpleRecipe != null) {
                             processTagCloseSimpleRecipe(simpleRecipe, tagName, textValue);
                             processTagCloseCookStep(simpleRecipe, cookStep, tagName, textValue);
-                            processTagCloseGroup(simpleRecipe, tagName, textValue);
+                            processTagCloseCategory(simpleRecipe, tagName, textValue);
                         }
                         break;
                     default:
@@ -103,13 +103,19 @@ class DummyRecipeParser {
             case "description":
                 recipe.setDescription(textValue);
                 break;
+            case "mine":
+                recipe.setMine(Boolean.valueOf(textValue));
+                break;
+            case "favorite":
+                recipe.setFavorite(Boolean.valueOf(textValue));
+                break;
         }
     }
 
-    private void processTagCloseGroup(SimpleRecipe recipe, String tagName, String textValue) {
+    private void processTagCloseCategory(SimpleRecipe recipe, String tagName, String textValue) {
         switch (tagName) {
-            case XML_TAG_GROUP:
-                recipe.addGroup(parseRecipeGroup(textValue));
+            case XML_TAG_CATEGORY:
+                recipe.addCategory(parseRecipeCategory(textValue));
                 break;
         }
     }
@@ -118,7 +124,7 @@ class DummyRecipeParser {
         if (cookStep != null) {
             switch (tagName) {
                 case XML_TAG_COOK_STEP:
-                    // cookStep зыкрыт
+                    // cookStep закрыт
                     recipe.addStep(cookStep);
                     break;
                 case "text":
