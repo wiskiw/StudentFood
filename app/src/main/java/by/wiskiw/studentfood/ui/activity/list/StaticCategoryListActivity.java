@@ -33,6 +33,7 @@ public class StaticCategoryListActivity extends ListActivity<StaticCategoryListV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
+        setToolbarTitle(getRecipeCategory().getCategoryTitle(this));
 
         RecyclerView recipesRv = findViewById(R.id.recipes_recycler_view);
         super.initRecyclerView(recipesRv);
