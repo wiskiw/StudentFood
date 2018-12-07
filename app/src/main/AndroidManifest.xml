@@ -20,15 +20,15 @@
         <activity
             android:name=".ui.activity.list.StaticCategoryListActivity"
             android:label="@string/title_activity_list"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.activity.list.FavoriteListActivity"
             android:label="@string/title_activity_list"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.activity.list.MyListActivity"
             android:label="@string/title_activity_list"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.activity.description.DescriptionActivity"
             android:label="@string/title_activity_scrolling"

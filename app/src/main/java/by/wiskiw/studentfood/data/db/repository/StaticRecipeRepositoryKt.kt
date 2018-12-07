@@ -34,4 +34,9 @@ class StaticRecipeRepositoryKt(val context: Context) {
         return recipeDao.get(context, recipeId)
     }
 
+    public fun delete(recipeId: Int): Boolean {
+        val response = recipeDao.delete(context, recipeId)
+        return response.isOk
+    }
+
 }

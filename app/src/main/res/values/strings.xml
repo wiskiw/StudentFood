@@ -7,6 +7,12 @@
     <string name="category_favorite_title">Избранные</string>
     <string name="category_my_title">Мои</string>
 
+
+    <string-array name="static_list_item_actions">
+        <item>Изменить</item>
+        <item>Удалить</item>
+    </string-array>
+
     <string name="title_activity_list">ListActivity</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="large_text">

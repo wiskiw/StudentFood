@@ -15,21 +15,22 @@ object RecipeDaoKt : RecipeDao {
 
     private val book: Book = DatabaseHolder.getDatabase()
 
-    private lateinit var recipeSet: MutableSet<SimpleRecipe>
+    private var recipeSet: MutableSet<SimpleRecipe>? = null
 
     override fun getAll(context: Context) = getSet(context).toList()
 
     private fun getSet(context: Context): MutableSet<SimpleRecipe> {
-        recipeSet = RecipeDaoKt.book.read<MutableSet<SimpleRecipe>>(
-                RecipeDaoKt.TAG_RECIPES, HashSet()).let {
-            if (ALWAYS_REREAD_DUMMY || it.isEmpty()) {
+        recipeSet?.let {
+            return it
+        } ?: run {
+            recipeSet = RecipeDaoKt.book.read<MutableSet<SimpleRecipe>>(
+                    RecipeDaoKt.TAG_RECIPES, HashSet())
+            if (ALWAYS_REREAD_DUMMY || recipeSet?.isEmpty() != false) {
                 val dummyRecipeReader = DummyRecipeReader(context)
-                dummyRecipeReader.read()
-            } else {
-                it
+                recipeSet = dummyRecipeReader.read()
             }
+            return recipeSet!!
         }
-        return recipeSet
     }
 
     private fun saveAll(context: Context) {

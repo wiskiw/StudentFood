@@ -4,20 +4,48 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+import by.wiskiw.studentfood.di.bus.ListItemUpdateAction;
 import by.wiskiw.studentfood.mvp.model.RecipeCategory;
-import by.wiskiw.studentfood.mvp.model.RecipeGroup;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
 import by.wiskiw.studentfood.mvp.view.list.StaticCategoryListView;
 
 public class StaticCategoryListPresenter extends CategoryListPresenter<StaticCategoryListView> {
 
+    private RecipeCategory recipeCategory;
+
     @Override
     public void attachView(@NonNull StaticCategoryListView view) {
         super.attachView(view);
+        recipeCategory = view.getRecipeCategory();
+        loadList(view);
+    }
 
-        RecipeCategory recipeCategory = view.getRecipeCategory();
+    private void loadList(StaticCategoryListView view) {
         List<SimpleRecipe> recipes = view.getStaticRecipeRep().getAll(recipeCategory);
         view.showRecipes(recipes);
     }
 
+    public void editRecipe(int listPos, SimpleRecipe simpleRecipe) {
+        // todo start edit activity
+    }
+
+    public void deleteRecipe(int listPos, SimpleRecipe simpleRecipe) {
+        ifViewAttached(view -> {
+            if (view.getStaticRecipeRep().delete(simpleRecipe.getId())) {
+                // если был удален из БД, удаляем из "Любимых" и "Моих"
+                view.getMyRecipeRep().removeFromMy(simpleRecipe.getId());
+                view.getFavoriteRecipeRep().removeFromFavorites(simpleRecipe.getId());
+
+                // обновляем список
+                loadList(view);
+            }
+        });
+    }
+
+    @Override
+    public void onListItemUpdateEvent(ListItemUpdateAction action) {
+        super.onListItemUpdateEvent(action);
+        // обновляем список при получении события о изменении/удалении/добавлении элемента списка
+        ifViewAttached(this::loadList);
+    }
 }

@@ -6,8 +6,16 @@ import android.support.v7.widget.RecyclerView;
 
 import com.hannesdorfmann.mosby3.mvp.MvpActivity;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
+import by.wiskiw.studentfood.data.db.repository.FavoriteRecipeRepositoryKt;
+import by.wiskiw.studentfood.data.db.repository.MyRecipeRepositoryKt;
+import by.wiskiw.studentfood.data.db.repository.StaticRecipeRepositoryKt;
+import by.wiskiw.studentfood.di.bus.ListItemUpdateAction;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
 import by.wiskiw.studentfood.mvp.presenter.list.CategoryListPresenter;
 import by.wiskiw.studentfood.mvp.view.list.CategoryListView;
@@ -17,12 +25,40 @@ import by.wiskiw.studentfood.ui.adapter.recipe.main.RecipeMainListAdapter;
 public abstract class ListActivity<V extends CategoryListView, P extends CategoryListPresenter<V>>
         extends MvpActivity<V, P> implements CategoryListView, ListItemOnClickListener<SimpleRecipe> {
 
+    private StaticRecipeRepositoryKt staticRecipeRepository;
+    private MyRecipeRepositoryKt myRecipeRepository;
+    private FavoriteRecipeRepositoryKt favoriteRecipeRepository;
+
     private RecipeMainListAdapter adapter;
 
     protected void initRecyclerView(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(getAdapter());
+    }
+
+    @Override
+    public StaticRecipeRepositoryKt getStaticRecipeRep() {
+        if (staticRecipeRepository == null) {
+            staticRecipeRepository = new StaticRecipeRepositoryKt(this);
+        }
+        return staticRecipeRepository;
+    }
+
+    @Override
+    public MyRecipeRepositoryKt getMyRecipeRep() {
+        if (myRecipeRepository == null) {
+            myRecipeRepository = new MyRecipeRepositoryKt(this);
+        }
+        return myRecipeRepository;
+    }
+
+    @Override
+    public FavoriteRecipeRepositoryKt getFavoriteRecipeRep() {
+        if (favoriteRecipeRepository == null) {
+            favoriteRecipeRepository = new FavoriteRecipeRepositoryKt(this);
+        }
+        return favoriteRecipeRepository;
     }
 
     protected void enableListClickListener(boolean enable){
@@ -54,5 +90,22 @@ public abstract class ListActivity<V extends CategoryListView, P extends Categor
     @Override
     public boolean onListItemLongClick(int listPos, SimpleRecipe item) {
         return false;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onListItemUpdateEvent(ListItemUpdateAction action) {
+        presenter.onListItemUpdateEvent(action);
     }
 }
