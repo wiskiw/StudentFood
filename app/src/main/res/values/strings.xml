@@ -8,7 +8,14 @@
     <string name="category_my_title">Мои</string>
 
 
-    <string-array name="static_list_item_actions">
+    <string-array name="static_recipes_list_item_actions">
+        <item>Изменить</item>
+        <item>Удалить</item>
+    </string-array>
+
+
+    <string name="my_recipes_list_activity_title">Мои рецепты</string>
+    <string-array name="my_recipes_list_item_actions">
         <item>Изменить</item>
         <item>Удалить</item>
     </string-array>

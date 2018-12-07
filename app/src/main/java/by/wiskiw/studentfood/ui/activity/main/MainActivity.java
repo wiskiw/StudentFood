@@ -15,7 +15,7 @@ import by.wiskiw.studentfood.mvp.view.MainView;
 import by.wiskiw.studentfood.ui.activity.FoodAppActivity;
 import by.wiskiw.studentfood.ui.activity.list.FavoriteListActivity;
 import by.wiskiw.studentfood.ui.activity.list.MyListActivity;
-import by.wiskiw.studentfood.ui.activity.list.StaticCategoryListActivity;
+import by.wiskiw.studentfood.ui.activity.list.StaticRecipesListActivity;
 
 public class MainActivity extends FoodAppActivity<MainView, MainPresenter> implements MainView {
 
@@ -68,9 +68,9 @@ public class MainActivity extends FoodAppActivity<MainView, MainPresenter> imple
         Intent intent = null;
         switch (group) {
             case STATIC:
-                intent = new Intent(this, StaticCategoryListActivity.class);
+                intent = new Intent(this, StaticRecipesListActivity.class);
                 if (recipeCategory != null) {
-                    StaticCategoryListActivity.putParams(intent, recipeCategory);
+                    StaticRecipesListActivity.putParams(intent, recipeCategory);
                 }
                 break;
             case MINE:

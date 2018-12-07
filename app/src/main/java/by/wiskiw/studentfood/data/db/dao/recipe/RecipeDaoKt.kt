@@ -28,6 +28,7 @@ object RecipeDaoKt : RecipeDao {
             if (ALWAYS_REREAD_DUMMY || recipeSet?.isEmpty() != false) {
                 val dummyRecipeReader = DummyRecipeReader(context)
                 recipeSet = dummyRecipeReader.read()
+                saveAll(context)
             }
             return recipeSet!!
         }

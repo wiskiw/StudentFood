@@ -11,15 +11,16 @@ class MyRecipeRepositoryKt(private val context: Context) {
     private val myRecipeIndexesDao = MyRecipeIndexesDaoJava.getInstance()
 
     public fun getAllMine(sortBy: (recipe: SimpleRecipe) -> String): List<SimpleRecipe> {
-        return getAllMine(context)
+        return getAllMine()
                 .asSequence()
                 .sortedBy { sortBy.invoke(it) }
                 .toList()
     }
 
-    public fun getAllMine(context: Context): List<SimpleRecipe> {
+    public fun getAllMine(): List<SimpleRecipe> {
         val idList = myRecipeIndexesDao.ids
-        return recipeDao.getAll(context).filter { idList.contains(it.id) }
+        return recipeDao.getAll(context)
+                .filter { idList.contains(it.id) }
     }
 
     public fun saveToMy(simpleRecipe: SimpleRecipe) {
@@ -31,9 +32,9 @@ class MyRecipeRepositoryKt(private val context: Context) {
         myRecipeIndexesDao.removeId(recipeId)
     }
 
-    public fun delete(recipeId: Int) {
+    public fun delete(recipeId: Int): Boolean {
         removeFromMy(recipeId)
-        recipeDao.delete(context, recipeId)
+        return recipeDao.delete(context, recipeId).isOk
     }
 
 }

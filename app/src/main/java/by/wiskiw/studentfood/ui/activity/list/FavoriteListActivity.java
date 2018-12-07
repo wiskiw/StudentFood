@@ -3,10 +3,8 @@ package by.wiskiw.studentfood.ui.activity.list;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import com.hannesdorfmann.mosby3.mvp.MvpPresenter;
-
 import by.wiskiw.studentfood.R;
-import by.wiskiw.studentfood.mvp.presenter.list.CategoryListPresenter;
+import by.wiskiw.studentfood.mvp.presenter.list.RecipesListPresenter;
 
 public class FavoriteListActivity extends ListActivity {
 
@@ -18,7 +16,7 @@ public class FavoriteListActivity extends ListActivity {
 
     @NonNull
     @Override
-    public CategoryListPresenter createPresenter() {
+    public RecipesListPresenter createPresenter() {
         // todo createPresenter
         return null;
     }

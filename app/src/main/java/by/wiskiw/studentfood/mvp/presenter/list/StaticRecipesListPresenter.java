@@ -7,20 +7,20 @@ import java.util.List;
 import by.wiskiw.studentfood.di.bus.ListItemUpdateAction;
 import by.wiskiw.studentfood.mvp.model.RecipeCategory;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
-import by.wiskiw.studentfood.mvp.view.list.StaticCategoryListView;
+import by.wiskiw.studentfood.mvp.view.list.StaticRecipesListView;
 
-public class StaticCategoryListPresenter extends CategoryListPresenter<StaticCategoryListView> {
+public class StaticRecipesListPresenter extends RecipesListPresenter<StaticRecipesListView> {
 
     private RecipeCategory recipeCategory;
 
     @Override
-    public void attachView(@NonNull StaticCategoryListView view) {
+    public void attachView(@NonNull StaticRecipesListView view) {
         super.attachView(view);
         recipeCategory = view.getRecipeCategory();
         loadList(view);
     }
 
-    private void loadList(StaticCategoryListView view) {
+    private void loadList(StaticRecipesListView view) {
         List<SimpleRecipe> recipes = view.getStaticRecipeRep().getAll(recipeCategory);
         view.showRecipes(recipes);
     }

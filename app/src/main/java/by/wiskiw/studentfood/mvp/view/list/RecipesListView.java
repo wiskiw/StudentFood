@@ -9,7 +9,7 @@ import by.wiskiw.studentfood.data.db.repository.MyRecipeRepositoryKt;
 import by.wiskiw.studentfood.data.db.repository.StaticRecipeRepositoryKt;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
 
-public interface CategoryListView extends MvpView {
+public interface RecipesListView extends MvpView {
 
     void showRecipes(List<SimpleRecipe> recipes);
 

@@ -89,3 +89,9 @@ Yapp/src/main/java/by/wiskiw/studentfood/ui/adapter/recipe/main/RecipeMainListAd
 Qapp/src/main/java/by/wiskiw/studentfood/mvp/view/list/StaticCategoryListView.java,b\8\b8f1821ab92d8070e26cc13bdf459f13a26daffa
 
 Oapp/src/main/java/by/wiskiw/studentfood/ui/adapter/ListItemOnClickListener.java,1\9\194bdef8661929606c555e818f8213f261cf80ed
+x
+Happ/src/main/java/by/wiskiw/studentfood/di/bus/ListItemUpdateAction.java,1\f\1f6826e3f62734687375e86f23011027200f566a
+s
+Capp/src/main/java/by/wiskiw/studentfood/ui/ActionDialogBuilder.java,3\7\377fe99aa58b622611315fbd078f2a679cc40d77
+x
+Happ/src/main/java/by/wiskiw/studentfood/ui/activity/FoodAppActivity.java,c\2\c2d436e3c6906d8d213ccd14120ce4885df4f712

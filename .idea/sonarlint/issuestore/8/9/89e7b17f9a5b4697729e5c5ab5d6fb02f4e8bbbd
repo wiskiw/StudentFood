@@ -1,2 +1,4 @@
 
-jsquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(”Ôœ¼8ýÛšø,
+Z"squid:SwitchLastCaseIsDefaultCheck""Add a default case to this switch.(ø¹½øÿÿÿÿÿ8­¿¼ø,
+jsquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(”Ôœ¼8­¿¼ø,
+lsquid:S1301"KReplace this "switch" statement by "if" statements to increase readability.(ø¹½øÿÿÿÿÿ8­¿¼ø,

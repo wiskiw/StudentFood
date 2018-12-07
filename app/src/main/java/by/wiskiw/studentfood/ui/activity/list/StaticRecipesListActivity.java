@@ -8,13 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import by.wiskiw.studentfood.R;
 import by.wiskiw.studentfood.mvp.model.RecipeCategory;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
-import by.wiskiw.studentfood.mvp.presenter.list.StaticCategoryListPresenter;
-import by.wiskiw.studentfood.mvp.view.list.StaticCategoryListView;
+import by.wiskiw.studentfood.mvp.presenter.list.StaticRecipesListPresenter;
+import by.wiskiw.studentfood.mvp.view.list.StaticRecipesListView;
 import by.wiskiw.studentfood.ui.ActionDialogBuilder;
 import by.wiskiw.studentfood.ui.activity.description.DescriptionActivity;
 
-public class StaticCategoryListActivity extends ListActivity<StaticCategoryListView, StaticCategoryListPresenter>
-        implements StaticCategoryListView {
+public class StaticRecipesListActivity extends ListActivity<StaticRecipesListView, StaticRecipesListPresenter>
+        implements StaticRecipesListView {
 
     private static final String INTENT_TAG_RECIPE_CAT = "recipe-category";
 
@@ -42,8 +42,8 @@ public class StaticCategoryListActivity extends ListActivity<StaticCategoryListV
 
     @NonNull
     @Override
-    public StaticCategoryListPresenter createPresenter() {
-        return new StaticCategoryListPresenter();
+    public StaticRecipesListPresenter createPresenter() {
+        return new StaticRecipesListPresenter();
     }
 
     @Override
@@ -58,7 +58,7 @@ public class StaticCategoryListActivity extends ListActivity<StaticCategoryListV
     public boolean onListItemLongClick(final int listPos, final SimpleRecipe item) {
         ActionDialogBuilder dialogBuilder = new ActionDialogBuilder(this);
         dialogBuilder.setTitle(item.getTitle());
-        dialogBuilder.setActions(getResources().getStringArray(R.array.static_list_item_actions));
+        dialogBuilder.setActions(getResources().getStringArray(R.array.static_recipes_list_item_actions));
         dialogBuilder.setListener(actionIndex -> {
             switch (actionIndex) {
                 case 0:
