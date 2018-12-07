@@ -1,6 +1,7 @@
 package by.wiskiw.studentfood.data.db.dummy;
 
 import android.support.annotation.NonNull;
+import android.util.AndroidRuntimeException;
 import android.util.Log;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -95,6 +96,7 @@ class DummyRecipeParser {
         switch (tagName) {
             case XML_TAG_RECIPE:
                 // рецепт закончился
+                checkForClone(recipe);
                 recipeSet.add(recipe);
                 break;
             case "title":
@@ -137,5 +139,13 @@ class DummyRecipeParser {
         }
     }
 
+    private void checkForClone(SimpleRecipe simpleRecipe) {
+        for (SimpleRecipe recipe : recipeSet) {
+            if (recipe.getId() == simpleRecipe.getId()) {
+                throw new AndroidRuntimeException("Dummy xml should not contains Recipes with same. " +
+                        "Found at least two Recipes with id: " + simpleRecipe.getId());
+            }
+        }
+    }
 
 }

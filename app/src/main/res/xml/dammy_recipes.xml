@@ -64,4 +64,31 @@
         </steps>
     </recipe>
 
+
+    <recipe id="4">
+        <title>Recipe 4</title>
+        <description>Recipe Desc 4</description>
+        <mine>false</mine>
+        <favorite>true</favorite>
+        <categories>
+            <category>CATEGORY_B</category>
+            <category>CATEGORY_C</category>
+        </categories>
+
+        <steps>
+            <cookStep>
+                <text>Cook step text 1</text>
+                <timeLong>1022000</timeLong>
+            </cookStep>
+            <cookStep>
+                <text>Cook step text 2</text>
+                <timeLong>1022000</timeLong>
+            </cookStep>
+            <cookStep>
+                <text>Cook asfsfp 23123 text</text>
+                <timeLong>1000</timeLong>
+            </cookStep>
+        </steps>
+    </recipe>
+
 </recipes>

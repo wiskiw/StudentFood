@@ -20,6 +20,13 @@
         <item>Удалить</item>
     </string-array>
 
+    <string name="favorite_recipes_list_activity_title">Избранные рецепты</string>
+    <string-array name="favorite_recipes_list_item_actions">
+        <item>Изменить</item>
+        <item>Убрать из избранных</item>
+        <item>Удалить</item>
+    </string-array>
+
     <string name="title_activity_list">ListActivity</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="large_text">

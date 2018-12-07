@@ -13,8 +13,8 @@ import by.wiskiw.studentfood.mvp.model.RecipeGroup;
 import by.wiskiw.studentfood.mvp.presenter.MainPresenter;
 import by.wiskiw.studentfood.mvp.view.MainView;
 import by.wiskiw.studentfood.ui.activity.FoodAppActivity;
-import by.wiskiw.studentfood.ui.activity.list.FavoriteListActivity;
-import by.wiskiw.studentfood.ui.activity.list.MyListActivity;
+import by.wiskiw.studentfood.ui.activity.list.FavoriteRecipesListActivity;
+import by.wiskiw.studentfood.ui.activity.list.MyRecipesListActivity;
 import by.wiskiw.studentfood.ui.activity.list.StaticRecipesListActivity;
 
 public class MainActivity extends FoodAppActivity<MainView, MainPresenter> implements MainView {
@@ -74,10 +74,10 @@ public class MainActivity extends FoodAppActivity<MainView, MainPresenter> imple
                 }
                 break;
             case MINE:
-                intent = new Intent(this, MyListActivity.class);
+                intent = new Intent(this, MyRecipesListActivity.class);
                 break;
             case FAVORITE:
-                intent = new Intent(this, FavoriteListActivity.class);
+                intent = new Intent(this, FavoriteRecipesListActivity.class);
                 break;
             default:
                 if (BuildConfig.DEBUG) throw new IllegalStateException("Process all groups in the switch!");

@@ -22,11 +22,11 @@
             android:label="@string/title_activity_list"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".ui.activity.list.FavoriteListActivity"
+            android:name=".ui.activity.list.FavoriteRecipesListActivity"
             android:label="@string/title_activity_list"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".ui.activity.list.MyListActivity"
+            android:name=".ui.activity.list.MyRecipesListActivity"
             android:label="@string/title_activity_list"
             android:theme="@style/AppTheme" />
         <activity

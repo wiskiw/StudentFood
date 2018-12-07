@@ -6,18 +6,18 @@ import android.support.v7.widget.RecyclerView;
 
 import by.wiskiw.studentfood.R;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
-import by.wiskiw.studentfood.mvp.presenter.list.MyRecipesListPresenter;
-import by.wiskiw.studentfood.mvp.view.list.MyRecipesListView;
+import by.wiskiw.studentfood.mvp.presenter.list.FavoriteRecipesListPresenter;
+import by.wiskiw.studentfood.mvp.view.list.FavoriteRecipesListView;
 import by.wiskiw.studentfood.ui.ActionDialogBuilder;
 
-public class MyListActivity extends ListActivity<MyRecipesListView, MyRecipesListPresenter>
-        implements MyRecipesListView {
+public class FavoriteRecipesListActivity extends ListActivity<FavoriteRecipesListView, FavoriteRecipesListPresenter>
+        implements FavoriteRecipesListView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
-        setToolbarTitle(getResources().getString(R.string.my_recipes_list_activity_title));
+        setToolbarTitle(getResources().getString(R.string.favorite_recipes_list_activity_title));
 
         RecyclerView recipesRv = findViewById(R.id.recipes_recycler_view);
         initRecyclerView(recipesRv);
@@ -26,15 +26,19 @@ public class MyListActivity extends ListActivity<MyRecipesListView, MyRecipesLis
 
     @NonNull
     @Override
-    public MyRecipesListPresenter createPresenter() {
-        return new MyRecipesListPresenter();
+    public FavoriteRecipesListPresenter createPresenter() {
+        return new FavoriteRecipesListPresenter();
     }
 
     @Override
     public boolean onListItemLongClick(int listPos, SimpleRecipe item) {
         ActionDialogBuilder dialogBuilder = new ActionDialogBuilder(this);
         dialogBuilder.setTitle(item.getTitle());
-        dialogBuilder.setActions(getResources().getStringArray(R.array.static_recipes_list_item_actions));
+        dialogBuilder.setActions(getResources().getStringArray(R.array.favorite_recipes_list_item_actions));
+
+        boolean isMyRecipe = presenter.isMyRecipe(item.getId());
+        dialogBuilder.setItemEnable(2, isMyRecipe);
+
         dialogBuilder.setListener(actionIndex -> {
             switch (actionIndex) {
                 case 0:
@@ -42,6 +46,10 @@ public class MyListActivity extends ListActivity<MyRecipesListView, MyRecipesLis
                     presenter.editRecipe(listPos, item);
                     break;
                 case 1:
+                    // Убрать из избранных
+                    presenter.removeRecipeFromFavorite(listPos, item);
+                    break;
+                case 2:
                     // Удалить
                     presenter.deleteRecipe(listPos, item);
                     break;
