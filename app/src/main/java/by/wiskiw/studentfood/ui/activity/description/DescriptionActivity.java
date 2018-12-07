@@ -12,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.hannesdorfmann.mosby3.mvp.MvpActivity;
-
 import org.jetbrains.annotations.NotNull;
 
 import by.wiskiw.studentfood.R;
@@ -24,8 +22,9 @@ import by.wiskiw.studentfood.mvp.model.CookStep;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
 import by.wiskiw.studentfood.mvp.presenter.DescriptionPresenter;
 import by.wiskiw.studentfood.mvp.view.DescriptionView;
+import by.wiskiw.studentfood.ui.activity.FoodAppActivity;
 
-public class DescriptionActivity extends MvpActivity<DescriptionView, DescriptionPresenter>
+public class DescriptionActivity extends FoodAppActivity<DescriptionView, DescriptionPresenter>
         implements DescriptionView {
 
     private static final String INTENT_TAG_RECIPE_ID = "recipe-id";

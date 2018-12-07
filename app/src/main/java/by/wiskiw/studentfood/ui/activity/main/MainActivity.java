@@ -6,19 +6,18 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 
-import com.hannesdorfmann.mosby3.mvp.MvpActivity;
-
 import by.wiskiw.studentfood.BuildConfig;
 import by.wiskiw.studentfood.R;
 import by.wiskiw.studentfood.mvp.model.RecipeCategory;
 import by.wiskiw.studentfood.mvp.model.RecipeGroup;
 import by.wiskiw.studentfood.mvp.presenter.MainPresenter;
 import by.wiskiw.studentfood.mvp.view.MainView;
+import by.wiskiw.studentfood.ui.activity.FoodAppActivity;
 import by.wiskiw.studentfood.ui.activity.list.FavoriteListActivity;
-import by.wiskiw.studentfood.ui.activity.list.ListActivity;
+import by.wiskiw.studentfood.ui.activity.list.MyListActivity;
 import by.wiskiw.studentfood.ui.activity.list.StaticCategoryListActivity;
 
-public class MainActivity extends MvpActivity<MainView, MainPresenter> implements MainView {
+public class MainActivity extends FoodAppActivity<MainView, MainPresenter> implements MainView {
 
     private CardView categoryACv;
     private CardView categoryBCv;
@@ -58,10 +57,10 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
                 presenter.onCategoryClicked(RecipeGroup.STATIC, RecipeCategory.CATEGORY_C));
 
         categoryMyCv.setOnClickListener(v ->
-                presenter.onCategoryClicked(RecipeGroup.STATIC, null));
+                presenter.onCategoryClicked(RecipeGroup.MINE, null));
 
         categoryFavoriteCv.setOnClickListener(v ->
-                presenter.onCategoryClicked(RecipeGroup.STATIC, null));
+                presenter.onCategoryClicked(RecipeGroup.FAVORITE, null));
     }
 
     @Override
@@ -75,13 +74,13 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
                 }
                 break;
             case MINE:
-                intent = new Intent(this, ListActivity.class);
+                intent = new Intent(this, MyListActivity.class);
                 break;
             case FAVORITE:
                 intent = new Intent(this, FavoriteListActivity.class);
                 break;
             default:
-                if (BuildConfig.DEBUG) throw new IllegalStateException("Process all groups!");
+                if (BuildConfig.DEBUG) throw new IllegalStateException("Process all groups in the switch!");
         }
 
         startActivity(intent);
