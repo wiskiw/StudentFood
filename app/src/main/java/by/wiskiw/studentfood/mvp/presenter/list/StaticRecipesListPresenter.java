@@ -21,7 +21,7 @@ public class StaticRecipesListPresenter extends RecipesListPresenter<StaticRecip
     }
 
     private void loadList(StaticRecipesListView view) {
-        List<SimpleRecipe> recipes = view.getStaticRecipeRep().getAll(recipeCategory);
+        List<SimpleRecipe> recipes = view.getRecipeRepository().getAll(recipeCategory);
         view.showRecipes(recipes);
     }
 
@@ -31,11 +31,8 @@ public class StaticRecipesListPresenter extends RecipesListPresenter<StaticRecip
 
     public void deleteRecipe(int listPos, SimpleRecipe simpleRecipe) {
         ifViewAttached(view -> {
-            if (view.getStaticRecipeRep().delete(simpleRecipe.getId())) {
-                // если был удален из БД, удаляем из "Любимых" и "Моих"
-                view.getMyRecipeRep().removeFromMy(simpleRecipe.getId());
-                view.getFavoriteRecipeRep().removeFromFavorites(simpleRecipe.getId());
-
+            if (view.getRecipeRepository().delete(simpleRecipe.getId())) {
+                // если был удален из БД
                 // обновляем список
                 loadList(view);
             }

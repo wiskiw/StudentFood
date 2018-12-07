@@ -15,8 +15,7 @@ public class MyRecipesListPresenter extends RecipesListPresenter<MyRecipesListVi
     }
 
     private void loadList(MyRecipesListView view) {
-        List<SimpleRecipe> recipes = view.getMyRecipeRep().getAllMine();
-
+        List<SimpleRecipe> recipes = view.getRecipeRepository().getAllMine();
         view.showRecipes(recipes);
     }
 
@@ -27,7 +26,7 @@ public class MyRecipesListPresenter extends RecipesListPresenter<MyRecipesListVi
 
     public void deleteRecipe(int listPos, SimpleRecipe simpleRecipe) {
         ifViewAttached(view -> {
-            if (view.getMyRecipeRep().delete(simpleRecipe.getId())) {
+            if (view.getRecipeRepository().delete(simpleRecipe.getId())) {
                 // если был удален
                 // обновляем список
                 loadList(view);

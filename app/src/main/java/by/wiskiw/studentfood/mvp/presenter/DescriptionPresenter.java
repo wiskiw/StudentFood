@@ -4,12 +4,11 @@ import android.support.annotation.NonNull;
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 
-import by.wiskiw.studentfood.data.db.Response;
+import by.wiskiw.studentfood.data.db.repository.RecipesRepositoryKt;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
 import by.wiskiw.studentfood.mvp.view.DescriptionView;
 
 public class DescriptionPresenter extends MvpBasePresenter<DescriptionView> {
-
 
     private int recipeId = -1;
     private int recipeListPos = -1;
@@ -20,10 +19,9 @@ public class DescriptionPresenter extends MvpBasePresenter<DescriptionView> {
     }
 
     private void loadRecipe(DescriptionView view) {
-        Response<SimpleRecipe> recipeResponse = view.getStaticRecipeRep().get(recipeId);
-        if (recipeResponse.isOk()) {
-            SimpleRecipe recipe = recipeResponse.getData();
-            view.showRecipe(recipe);
+        SimpleRecipe simpleRecipe = view.getRecipesRepository().get(recipeId);
+        if (!simpleRecipe.isNull()) {
+            view.showRecipe(simpleRecipe);
         } else {
             view.showRecipeNotFound(recipeId);
         }
@@ -38,11 +36,10 @@ public class DescriptionPresenter extends MvpBasePresenter<DescriptionView> {
 
     public void clickAddToFavorite() {
         ifViewAttached(view -> {
-            if (view.getFavoriteRecipeRep().isInFavorite(recipeId)) {
-                view.getFavoriteRecipeRep().removeFromFavorites(recipeId);
-            } else {
-                view.getFavoriteRecipeRep().putToFavorites(recipeId);
-            }
+            RecipesRepositoryKt rep = view.getRecipesRepository();
+            SimpleRecipe recipe = rep.get(recipeId);
+            recipe.setFavorite(!recipe.isFavorite());
+            rep.save(recipe);
         });
     }
 

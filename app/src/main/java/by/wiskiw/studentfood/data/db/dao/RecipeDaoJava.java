@@ -1,4 +1,4 @@
-package by.wiskiw.studentfood.data.db.dao.recipe;
+package by.wiskiw.studentfood.data.db.dao;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -14,7 +14,6 @@ import by.wiskiw.studentfood.data.db.DatabaseHolder;
 import by.wiskiw.studentfood.data.db.Response;
 import by.wiskiw.studentfood.data.db.dummy.DummyRecipeReader;
 import by.wiskiw.studentfood.data.db.exception.RecordByIdNotFound;
-import by.wiskiw.studentfood.mvp.model.RecipeGroup;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
 import io.paperdb.Book;
 

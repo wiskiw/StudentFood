@@ -15,6 +15,8 @@ import by.wiskiw.studentfood.utils.diff.util.DiffUtilItem;
 
 public class SimpleRecipe implements DiffUtilItem {
 
+    private static final int NULL_ID = -1;
+
     private int id;
 
     private String title = "";
@@ -34,8 +36,16 @@ public class SimpleRecipe implements DiffUtilItem {
         this.id = id;
     }
 
+    public static SimpleRecipe nullRecipe() {
+        return new SimpleRecipe(NULL_ID);
+    }
+
     public int getId() {
         return id;
+    }
+
+    public boolean isNull() {
+        return id == NULL_ID;
     }
 
     public String getTitle() {

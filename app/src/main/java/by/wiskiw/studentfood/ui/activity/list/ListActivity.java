@@ -11,9 +11,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
-import by.wiskiw.studentfood.data.db.repository.FavoriteRecipeRepositoryKt;
-import by.wiskiw.studentfood.data.db.repository.MyRecipeRepositoryKt;
-import by.wiskiw.studentfood.data.db.repository.StaticRecipeRepositoryKt;
+import by.wiskiw.studentfood.data.db.repository.RecipesRepositoryKt;
 import by.wiskiw.studentfood.di.bus.ListItemUpdateAction;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
 import by.wiskiw.studentfood.mvp.presenter.list.RecipesListPresenter;
@@ -25,9 +23,7 @@ import by.wiskiw.studentfood.ui.adapter.recipe.main.RecipeMainListAdapter;
 public abstract class ListActivity<V extends RecipesListView, P extends RecipesListPresenter<V>>
         extends FoodAppActivity<V, P> implements RecipesListView, ListItemOnClickListener<SimpleRecipe> {
 
-    private StaticRecipeRepositoryKt staticRecipeRepository;
-    private MyRecipeRepositoryKt myRecipeRepository;
-    private FavoriteRecipeRepositoryKt favoriteRecipeRepository;
+    private RecipesRepositoryKt recipesRepository;
 
     private RecipeMainListAdapter adapter;
 
@@ -44,31 +40,15 @@ public abstract class ListActivity<V extends RecipesListView, P extends RecipesL
     }
 
     @Override
-    public StaticRecipeRepositoryKt getStaticRecipeRep() {
-        if (staticRecipeRepository == null) {
-            staticRecipeRepository = new StaticRecipeRepositoryKt(this);
+    public RecipesRepositoryKt getRecipeRepository() {
+        if (recipesRepository == null) {
+            recipesRepository = new RecipesRepositoryKt(this);
         }
-        return staticRecipeRepository;
+        return recipesRepository;
     }
 
-    @Override
-    public MyRecipeRepositoryKt getMyRecipeRep() {
-        if (myRecipeRepository == null) {
-            myRecipeRepository = new MyRecipeRepositoryKt(this);
-        }
-        return myRecipeRepository;
-    }
-
-    @Override
-    public FavoriteRecipeRepositoryKt getFavoriteRecipeRep() {
-        if (favoriteRecipeRepository == null) {
-            favoriteRecipeRepository = new FavoriteRecipeRepositoryKt(this);
-        }
-        return favoriteRecipeRepository;
-    }
-
-    protected void enableListClickListener(boolean enable){
-        if (enable){
+    protected void enableListClickListener(boolean enable) {
+        if (enable) {
             getAdapter().setOnClickListener(this);
         } else {
             getAdapter().setOnClickListener(null);

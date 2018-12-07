@@ -1,4 +1,4 @@
-package by.wiskiw.studentfood.data.db.dao.recipe
+package by.wiskiw.studentfood.data.db.dao
 
 import android.content.Context
 import by.wiskiw.studentfood.data.db.DatabaseHolder
@@ -23,8 +23,8 @@ object RecipeDaoKt : RecipeDao {
         recipeSet?.let {
             return it
         } ?: run {
-            recipeSet = RecipeDaoKt.book.read<MutableSet<SimpleRecipe>>(
-                    RecipeDaoKt.TAG_RECIPES, HashSet())
+            recipeSet = book.read<MutableSet<SimpleRecipe>>(
+                    TAG_RECIPES, HashSet())
             if (ALWAYS_REREAD_DUMMY || recipeSet?.isEmpty() != false) {
                 val dummyRecipeReader = DummyRecipeReader(context)
                 recipeSet = dummyRecipeReader.read()

@@ -1,4 +1,4 @@
-package by.wiskiw.studentfood.data.db.dao.recipe;
+package by.wiskiw.studentfood.data.db.dao;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

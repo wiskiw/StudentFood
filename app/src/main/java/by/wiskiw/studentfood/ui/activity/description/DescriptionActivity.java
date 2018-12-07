@@ -15,8 +15,7 @@ import android.widget.TextView;
 import org.jetbrains.annotations.NotNull;
 
 import by.wiskiw.studentfood.R;
-import by.wiskiw.studentfood.data.db.repository.FavoriteRecipeRepositoryKt;
-import by.wiskiw.studentfood.data.db.repository.StaticRecipeRepositoryKt;
+import by.wiskiw.studentfood.data.db.repository.RecipesRepositoryKt;
 import by.wiskiw.studentfood.di.FoodApp;
 import by.wiskiw.studentfood.mvp.model.CookStep;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
@@ -32,11 +31,10 @@ public class DescriptionActivity extends FoodAppActivity<DescriptionView, Descri
 
 
     /*
-     Чтобы избежать context leaks memory создаем и храним репозитории во вью (Activity)
-     и предоставляем их Презентеру по требованию
+     Чтобы избежать context leaks memory создаем и храним репозиторий во вью (Activity)
+     и предоставляем его Презентеру по требованию
      */
-    private StaticRecipeRepositoryKt staticRecipeRepository;
-    private FavoriteRecipeRepositoryKt favoriteRecipeRepository;
+    private RecipesRepositoryKt recipesRepository;
 
 
     private LinearLayout cookingLevelsLl;
@@ -142,18 +140,10 @@ public class DescriptionActivity extends FoodAppActivity<DescriptionView, Descri
     }
 
     @Override
-    public StaticRecipeRepositoryKt getStaticRecipeRep() {
-        if (staticRecipeRepository == null) {
-            staticRecipeRepository = new StaticRecipeRepositoryKt(this);
+    public RecipesRepositoryKt getRecipesRepository() {
+        if (recipesRepository == null) {
+            recipesRepository = new RecipesRepositoryKt(this);
         }
-        return staticRecipeRepository;
-    }
-
-    @Override
-    public FavoriteRecipeRepositoryKt getFavoriteRecipeRep() {
-        if (favoriteRecipeRepository == null) {
-            favoriteRecipeRepository = new FavoriteRecipeRepositoryKt(this);
-        }
-        return favoriteRecipeRepository;
+        return recipesRepository;
     }
 }
