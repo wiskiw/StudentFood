@@ -25,10 +25,6 @@ public class StaticRecipesListPresenter extends RecipesListPresenter<StaticRecip
         view.showRecipes(recipes);
     }
 
-    public void editRecipe(int listPos, SimpleRecipe simpleRecipe) {
-        // todo start edit activity
-    }
-
     public void deleteRecipe(int listPos, SimpleRecipe simpleRecipe) {
         ifViewAttached(view -> {
             if (view.getRecipeRepository().delete(simpleRecipe.getId())) {

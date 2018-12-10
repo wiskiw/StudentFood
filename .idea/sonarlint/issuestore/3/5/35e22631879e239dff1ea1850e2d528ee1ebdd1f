@@ -1,7 +1,7 @@
 
-gsquid:S1301"KReplace this "switch" statement by "if" statements to increase readability.(·£³å8˜¦Ý™ø,
-U"squid:SwitchLastCaseIsDefaultCheck""Add a default case to this switch.(·£³å8õ²×™ø,
-U"squid:SwitchLastCaseIsDefaultCheck""Add a default case to this switch.(·£³å8˜¦Ý™ø,
-U"squid:SwitchLastCaseIsDefaultCheck""Add a default case to this switch.(·£³å8õ²×™ø,
-gsquid:S1301"KReplace this "switch" statement by "if" statements to increase readability.(·£³å8õ²×™ø,
-U"squid:SwitchLastCaseIsDefaultCheck""Add a default case to this switch.(·£³å8õ²×™ø,
+U"squid:SwitchLastCaseIsDefaultCheck""Add a default case to this switch.(·£³å8¦é¢Åø,
+U"squid:SwitchLastCaseIsDefaultCheck""Add a default case to this switch.(·£³å8¦é¢Åø,
+gsquid:S1301"KReplace this "switch" statement by "if" statements to increase readability.(·£³å8¦é¢Åø,
+U"squid:SwitchLastCaseIsDefaultCheck""Add a default case to this switch.(·£³å8¦é¢Åø,
+gsquid:S1301"KReplace this "switch" statement by "if" statements to increase readability.(·£³å8¦é¢Åø,
+U"squid:SwitchLastCaseIsDefaultCheck""Add a default case to this switch.(·£³å8¦é¢Åø,

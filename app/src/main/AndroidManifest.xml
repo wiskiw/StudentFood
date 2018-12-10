@@ -33,6 +33,10 @@
             android:name=".ui.activity.description.DescriptionActivity"
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.activity.create.edit.CreateEditActivity"
+            android:label="@string/create_edit_activity_create_title"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

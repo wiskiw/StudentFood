@@ -27,6 +27,11 @@
         <item>Удалить</item>
     </string-array>
 
+
+    <string name="create_edit_activity_create_title">Новый рецепт</string>
+    <string name="create_edit_save_button_text">Save</string>
+    <string name="create_edit_cancel_button_text">Cancel</string>
+
     <string name="title_activity_list">ListActivity</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="large_text">

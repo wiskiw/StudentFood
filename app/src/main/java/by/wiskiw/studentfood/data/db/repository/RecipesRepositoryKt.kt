@@ -41,6 +41,10 @@ class RecipesRepositoryKt(val context: Context) {
         }
     }
 
+    public fun getNew(): SimpleRecipe {
+        return SimpleRecipe(recipeDao.getNextId(context))
+    }
+
     public fun delete(recipeId: Int): Boolean {
         val response = recipeDao.delete(context, recipeId)
         return response.isOk

@@ -63,7 +63,7 @@ public class StaticRecipesListActivity extends ListActivity<StaticRecipesListVie
             switch (actionIndex) {
                 case 0:
                     // Изменить
-                    presenter.editRecipe(listPos, item);
+                    startEditRecipeActivity(item.getId(), listPos);
                     break;
                 case 1:
                     // Удалить
