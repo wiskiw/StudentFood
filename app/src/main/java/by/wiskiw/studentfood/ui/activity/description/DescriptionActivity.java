@@ -114,7 +114,7 @@ public class DescriptionActivity extends FoodAppActivity<DescriptionView, Descri
 
     private void addCookStep(CookStep cookStep) {
         LayoutInflater inflater = LayoutInflater.from(this);
-        View itemView = inflater.inflate(R.layout.content_cook_level, cookingLevelsLl, false);
+        View itemView = inflater.inflate(R.layout.content_cook_step, cookingLevelsLl, false);
 
         TextView textTv = itemView.findViewById(R.id.text_view_text);
         TextView timeTv = itemView.findViewById(R.id.text_view_time);

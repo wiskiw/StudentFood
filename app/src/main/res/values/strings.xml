@@ -31,6 +31,10 @@
     <string name="create_edit_activity_create_title">Новый рецепт</string>
     <string name="create_edit_save_button_text">Save</string>
     <string name="create_edit_cancel_button_text">Cancel</string>
+    <string name="create_edit_title_hint">Название</string>
+    <string name="create_edit_description_hint">Описание</string>
+    <string name="create_edit_steps_list_title">Этапы</string>
+    <string name="create_edit_image_path_hint">Выберите фотографию</string>
 
     <string name="title_activity_list">ListActivity</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>

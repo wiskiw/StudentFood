@@ -20,6 +20,7 @@ public class CreateEditPresenter extends MvpBasePresenter<CreateEditView> {
             RecipesRepositoryKt rep = view.getRecipeRepository();
             if (id >= 0) {
                 editRecipe = rep.get(id);
+                view.showRecipe(editRecipe);
             } else {
                 editRecipe = rep.getNew();
             }

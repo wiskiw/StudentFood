@@ -5,7 +5,10 @@ import android.support.annotation.NonNull;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class CookStep {
+import by.wiskiw.studentfood.utils.RecipeTimeUtil;
+import by.wiskiw.studentfood.utils.diff.util.DiffUtilItem;
+
+public class CookStep implements DiffUtilItem {
 
     private String text = "";
     private Long time = 0L;
@@ -33,9 +36,7 @@ public class CookStep {
     }
 
     public String getTimeString() {
-        Calendar calendar = new GregorianCalendar();
-        calendar.setTimeInMillis(time);
-        return calendar.get(GregorianCalendar.MINUTE) + " min";
+        return RecipeTimeUtil.INSTANCE.formatToString(time);
     }
 
     @NonNull
@@ -45,5 +46,28 @@ public class CookStep {
                 "text='" + text + '\'' +
                 ", time= " + getTimeString() + " (" + time + ")" +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CookStep cookStep = (CookStep) o;
+
+        if (text != null ? !text.equals(cookStep.text) : cookStep.text != null) return false;
+        return time != null ? time.equals(cookStep.time) : cookStep.time == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = text != null ? text.hashCode() : 0;
+        result = 31 * result + (time != null ? time.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public int getId() {
+        return this.hashCode();
     }
 }
