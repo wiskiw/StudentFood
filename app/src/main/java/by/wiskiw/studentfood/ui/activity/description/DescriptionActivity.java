@@ -118,11 +118,9 @@ public class DescriptionActivity extends FoodAppActivity<DescriptionView, Descri
 
         TextView textTv = itemView.findViewById(R.id.text_view_text);
         TextView timeTv = itemView.findViewById(R.id.text_view_time);
-        ImageView imageView = itemView.findViewById(R.id.image_view_image);
 
         textTv.setText(cookStep.getText());
         timeTv.setText(cookStep.getTimeString());
-        // todo : show image imageView.set...
 
         cookingLevelsLl.addView(itemView);
     }
