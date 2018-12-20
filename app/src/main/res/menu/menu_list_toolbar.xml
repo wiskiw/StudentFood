@@ -6,7 +6,7 @@
 
     <item
         android:id="@+id/toolbar_action_add"
-        android:icon="@android:drawable/ic_menu_add"
+        android:icon="@drawable/ic_add_circle_outline_white_24dp"
         android:orderInCategory="300"
         android:title="Add"
         app:showAsAction="ifRoom" />

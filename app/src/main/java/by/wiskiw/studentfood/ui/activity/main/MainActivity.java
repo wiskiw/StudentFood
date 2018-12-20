@@ -34,6 +34,10 @@ public class MainActivity extends FoodAppActivity<MainView, MainPresenter> imple
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Возврат стандартного стиля после Splash Screen
+        setTheme(R.style.AppTheme);
+
         setContentView(R.layout.activity_main);
 
         categoryACv = findViewById(R.id.category_a_card_view);

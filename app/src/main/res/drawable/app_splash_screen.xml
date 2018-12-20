@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:gravity="center_vertical">
+        <shape>
+            <gradient
+                android:angle="90"
+                android:centerColor="@color/splash_screen_bg_end"
+                android:centerY="1"
+                android:startColor="@color/splash_screen_bg_start"
+                android:type="linear" />
+        </shape>
+    </item>
+
+    <item
+        android:drawable="@drawable/ic_splash_screen_white_48dp"
+        android:gravity="center" />
+
+</layer-list>

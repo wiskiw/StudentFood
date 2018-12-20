@@ -15,18 +15,25 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+    <!-- Splash Screen стиль -->
+    <style name="AppTheme.SplashScreen" parent="AppTheme.NoActionBar">
+        <item name="android:windowBackground">@drawable/app_splash_screen</item>
+    </style>
+
     <style name="AppTheme.CustomImagePickerTheme" parent="ef_BaseTheme">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="CollapsedAppBar">
+    <style name="CollapsedAppBar" parent="@android:style/TextAppearance">
         <item name="android:textSize">21sp</item>
     </style>
 
-    <style name="ExpandedAppBar">
+    <style name="ExpandedAppBar" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textSize">26sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

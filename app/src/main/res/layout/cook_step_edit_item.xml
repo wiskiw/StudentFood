@@ -48,7 +48,7 @@
                 android:layout_height="32dp"
                 android:layout_margin="4dp"
                 android:background="@drawable/ic_edit_white_24dp"
-                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTint="@color/colorButton"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:padding="8dp" />
 
@@ -58,6 +58,7 @@
                 android:layout_height="32dp"
                 android:layout_margin="4dp"
                 android:background="@android:drawable/ic_delete"
+                android:backgroundTint="@color/colorButton"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:padding="8dp" />
         </LinearLayout>
