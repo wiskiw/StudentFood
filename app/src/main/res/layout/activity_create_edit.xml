@@ -99,6 +99,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/cook_steps_view_recipes"
             android:layout_width="match_parent"
+            android:minHeight="500dp"
             android:layout_height="wrap_content" />
 
     </LinearLayout>

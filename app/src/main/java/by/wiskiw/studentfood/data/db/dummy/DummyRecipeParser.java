@@ -110,6 +110,7 @@ class DummyRecipeParser {
                 break;
             case "favorite":
                 recipe.setFavorite(Boolean.valueOf(textValue));
+                break;
             case "image":
                 recipe.setHeaderImageFileName(textValue);
                 break;
