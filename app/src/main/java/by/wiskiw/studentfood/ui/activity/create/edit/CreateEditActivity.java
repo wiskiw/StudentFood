@@ -35,7 +35,7 @@ import by.wiskiw.studentfood.data.db.repository.RecipesRepositoryKt;
 import by.wiskiw.studentfood.data.image.RecipeImageFileManager;
 import by.wiskiw.studentfood.di.FoodApp;
 import by.wiskiw.studentfood.di.bus.CookStepModifiedEvent;
-import by.wiskiw.studentfood.di.bus.ListItemUpdateAction;
+import by.wiskiw.studentfood.di.bus.RecipeUpdateAction;
 import by.wiskiw.studentfood.mvp.model.CookStep;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
 import by.wiskiw.studentfood.mvp.presenter.CreateEditPresenter;
@@ -210,11 +210,10 @@ public class CreateEditActivity extends FoodAppActivity<CreateEditView, CreateEd
     @Override
     public void notifyListItemUpdate() {
         Log.d(FoodApp.LOG_TAG, "notifyListItemUpdate");
-        ListItemUpdateAction action;
+        RecipeUpdateAction action = new RecipeUpdateAction();
+
         if (listPos >= 0) {
-            action = new ListItemUpdateAction(listPos, ListItemUpdateAction.Type.UPDATE);
-        } else {
-            action = new ListItemUpdateAction(ListItemUpdateAction.Type.ADDED);
+            action.setListPos(listPos);
         }
         EventBus.getDefault().post(action);
     }

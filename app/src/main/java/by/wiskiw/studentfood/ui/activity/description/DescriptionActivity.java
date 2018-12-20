@@ -13,17 +13,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
 
+import by.wiskiw.studentfood.BuildConfig;
 import by.wiskiw.studentfood.R;
 import by.wiskiw.studentfood.data.db.repository.RecipesRepositoryKt;
 import by.wiskiw.studentfood.data.image.RecipeImageFileManager;
 import by.wiskiw.studentfood.di.FoodApp;
+import by.wiskiw.studentfood.di.bus.RecipeUpdateAction;
 import by.wiskiw.studentfood.mvp.model.CookStep;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
 import by.wiskiw.studentfood.mvp.presenter.DescriptionPresenter;
 import by.wiskiw.studentfood.mvp.view.DescriptionView;
 import by.wiskiw.studentfood.ui.activity.FoodAppActivity;
+import by.wiskiw.studentfood.ui.activity.create.edit.CreateEditActivity;
 
 public class DescriptionActivity extends FoodAppActivity<DescriptionView, DescriptionPresenter>
         implements DescriptionView {
@@ -43,7 +49,7 @@ public class DescriptionActivity extends FoodAppActivity<DescriptionView, Descri
 
     private ImageView headerIv;
     private ImageView addToFavoriteBtn;
-    private ImageView action2Iv;
+    private ImageView editRecipeBtn;
     private ImageView action3Iv;
 
     private TextView descriptionTv;
@@ -80,22 +86,35 @@ public class DescriptionActivity extends FoodAppActivity<DescriptionView, Descri
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         setContentView(R.layout.activity_description);
         parseArgs();
 
         cookingLevelsLl = findViewById(R.id.linear_layout_cooking_levels);
         headerIv = findViewById(R.id.image_view_header);
 
-        addToFavoriteBtn = findViewById(R.id.image_view_add_to_favorite);
-        addToFavoriteBtn.setOnClickListener(v -> presenter.clickAddToFavorite());
-
-        action2Iv = findViewById(R.id.image_view_action_2);
-        action3Iv = findViewById(R.id.image_view_action_3);
-
         descriptionTv = findViewById(R.id.text_view_description);
 
         setupToolbar();
+        setupButtons();
         getPresenter().loadRecipe(this);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    private void setupButtons() {
+        addToFavoriteBtn = findViewById(R.id.image_view_add_to_favorite);
+        addToFavoriteBtn.setOnClickListener(v -> presenter.clickAddToFavorite());
+
+        editRecipeBtn = findViewById(R.id.image_view_edit);
+        editRecipeBtn.setOnClickListener(v -> presenter.clickEditRecipe());
+
+        action3Iv = findViewById(R.id.image_view_action_3);
     }
 
     private void setupToolbar() {
@@ -117,13 +136,19 @@ public class DescriptionActivity extends FoodAppActivity<DescriptionView, Descri
 
     private void addCookStep(CookStep cookStep) {
         LayoutInflater inflater = LayoutInflater.from(this);
-        View itemView = inflater.inflate(R.layout.content_cook_step, cookingLevelsLl, false);
+        View itemView = inflater.inflate(R.layout.cook_step_item, cookingLevelsLl, false);
 
         TextView textTv = itemView.findViewById(R.id.text_view_text);
         TextView timeTv = itemView.findViewById(R.id.text_view_time);
+        View timeContainer = itemView.findViewById(R.id.container_time);
 
         textTv.setText(cookStep.getText());
-        timeTv.setText(cookStep.getTimeString());
+
+        if (cookStep.getTime() > 0) {
+            timeTv.setText(cookStep.getTimeString());
+        } else {
+            timeContainer.setVisibility(View.GONE);
+        }
 
         cookingLevelsLl.addView(itemView);
     }
@@ -139,11 +164,30 @@ public class DescriptionActivity extends FoodAppActivity<DescriptionView, Descri
         if (bitmap != null) {
             headerIv.setImageBitmap(bitmap);
         }
+
+        showFavoriteButtonMarked(recipe.isFavorite());
+
+        boolean isEditAllow = recipe.isMine();
+        editRecipeBtn.setEnabled(isEditAllow);
+        editRecipeBtn.setAlpha(isEditAllow ? 1f : 0.5f);
+    }
+
+    @Override
+    public void showFavoriteButtonMarked(boolean isMarked) {
+        if (isMarked) {
+            addToFavoriteBtn.setImageResource(R.drawable.ic_star_white_24dp);
+        } else {
+            addToFavoriteBtn.setImageResource(R.drawable.ic_star_border_white_24dp);
+        }
     }
 
     @Override
     public void showRecipeNotFound(int recipeId) {
-        // todo showRecipeNotFound
+        if (BuildConfig.DEBUG) {
+            throw new IllegalStateException("Description activity was launched with incorrect recipe id: " + recipeId);
+        } else {
+            this.finish();
+        }
     }
 
     @Override
@@ -152,5 +196,17 @@ public class DescriptionActivity extends FoodAppActivity<DescriptionView, Descri
             recipesRepository = new RecipesRepositoryKt(this);
         }
         return recipesRepository;
+    }
+
+    @Override
+    public void startEditActivity(int recipeId) {
+        Intent launchIntent = new Intent(this, CreateEditActivity.class);
+        CreateEditActivity.putRecipeId(launchIntent, recipeId);
+        startActivity(launchIntent);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onItemUpdateEvent(RecipeUpdateAction action) {
+        presenter.onItemBeenUpdate();
     }
 }

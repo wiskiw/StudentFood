@@ -47,14 +47,6 @@ public class StaticRecipesListActivity extends ListActivity<StaticRecipesListVie
     }
 
     @Override
-    public void onListItemClick(int listPos, SimpleRecipe recipe) {
-        super.onListItemClick(listPos, recipe);
-        Intent intent = new Intent(this, DescriptionActivity.class);
-        DescriptionActivity.putArgs(intent, recipe.getId(), listPos);
-        startActivity(intent);
-    }
-
-    @Override
     public boolean onListItemLongClick(final int listPos, final SimpleRecipe item) {
         ActionDialogBuilder dialogBuilder = new ActionDialogBuilder(this);
         dialogBuilder.setTitle(item.getTitle());

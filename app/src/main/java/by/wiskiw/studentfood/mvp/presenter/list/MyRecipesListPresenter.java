@@ -2,6 +2,7 @@ package by.wiskiw.studentfood.mvp.presenter.list;
 
 import java.util.List;
 
+import by.wiskiw.studentfood.di.bus.RecipeUpdateAction;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
 import by.wiskiw.studentfood.mvp.view.list.MyRecipesListView;
 
@@ -34,5 +35,11 @@ public class MyRecipesListPresenter extends RecipesListPresenter<MyRecipesListVi
         });
     }
 
+    @Override
+    public void onListItemUpdateEvent(RecipeUpdateAction action) {
+        super.onListItemUpdateEvent(action);
+        // обновляем список при получении события о изменении/удалении/добавлении элемента списка
+        ifViewAttached(this::loadList);
+    }
 
 }

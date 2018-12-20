@@ -1,6 +1,6 @@
 package by.wiskiw.studentfood.di.bus;
 
-public class ListItemUpdateAction {
+public class RecipeUpdateAction {
 
     public enum Type {
         UPDATE,
@@ -11,11 +11,14 @@ public class ListItemUpdateAction {
     private int listPos;
     private Type type;
 
-    public ListItemUpdateAction(Type type) {
+    public RecipeUpdateAction() {
+    }
+
+    public RecipeUpdateAction(Type type) {
         this.type = type;
     }
 
-    public ListItemUpdateAction(int listPos, Type type) {
+    public RecipeUpdateAction(int listPos, Type type) {
         this(type);
         this.listPos = listPos;
     }
@@ -28,9 +31,17 @@ public class ListItemUpdateAction {
         return type;
     }
 
+    public void setListPos(int listPos) {
+        this.listPos = listPos;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
-        return "ListItemUpdateAction{" +
+        return "RecipeUpdateAction{" +
                 "listPos=" + listPos +
                 ", type=" + type +
                 '}';

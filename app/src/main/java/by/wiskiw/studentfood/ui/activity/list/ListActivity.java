@@ -18,12 +18,13 @@ import java.util.List;
 import by.wiskiw.studentfood.R;
 import by.wiskiw.studentfood.data.db.repository.RecipesRepositoryKt;
 import by.wiskiw.studentfood.di.FoodApp;
-import by.wiskiw.studentfood.di.bus.ListItemUpdateAction;
+import by.wiskiw.studentfood.di.bus.RecipeUpdateAction;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
 import by.wiskiw.studentfood.mvp.presenter.list.RecipesListPresenter;
 import by.wiskiw.studentfood.mvp.view.list.RecipesListView;
 import by.wiskiw.studentfood.ui.activity.FoodAppActivity;
 import by.wiskiw.studentfood.ui.activity.create.edit.CreateEditActivity;
+import by.wiskiw.studentfood.ui.activity.description.DescriptionActivity;
 import by.wiskiw.studentfood.ui.adapter.ListItemOnClickListener;
 import by.wiskiw.studentfood.ui.adapter.recipe.main.RecipeMainListAdapter;
 
@@ -108,8 +109,10 @@ public abstract class ListActivity<V extends RecipesListView, P extends RecipesL
 
 
     @Override
-    public void onListItemClick(int listPos, SimpleRecipe item) {
-
+    public void onListItemClick(int listPos, SimpleRecipe recipe) {
+        Intent intent = new Intent(this, DescriptionActivity.class);
+        DescriptionActivity.putArgs(intent, recipe.getId(), listPos);
+        startActivity(intent);
     }
 
     @Override
@@ -118,7 +121,7 @@ public abstract class ListActivity<V extends RecipesListView, P extends RecipesL
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onListItemUpdateEvent(ListItemUpdateAction action) {
+    public void onListItemUpdateEvent(RecipeUpdateAction action) {
         Log.d(FoodApp.LOG_TAG, "onListItemUpdateEvent: " + action.toString());
         presenter.onListItemUpdateEvent(action);
     }

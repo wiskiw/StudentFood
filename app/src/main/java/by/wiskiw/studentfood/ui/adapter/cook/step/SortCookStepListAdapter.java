@@ -31,7 +31,7 @@ public class SortCookStepListAdapter extends DiffCalculatorListAdapter<CookStep,
     @Override
     public SortCookStepViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View itemView = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.content_cook_step, viewGroup, false);
+                .inflate(R.layout.cook_step_edit_item, viewGroup, false);
         return new SortCookStepViewHolder(itemView);
     }
 

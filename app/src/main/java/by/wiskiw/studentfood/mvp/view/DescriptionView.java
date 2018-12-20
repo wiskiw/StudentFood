@@ -11,6 +11,10 @@ public interface DescriptionView extends MvpView {
 
     void showRecipeNotFound(int recipeId);
 
+    void showFavoriteButtonMarked(boolean isMarked);
+
     RecipesRepositoryKt getRecipesRepository();
+
+    void startEditActivity(int recipeId);
 
 }

@@ -1,7 +1,5 @@
 package by.wiskiw.studentfood.mvp.presenter;
 
-import android.support.annotation.NonNull;
-
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 
 import by.wiskiw.studentfood.data.db.repository.RecipesRepositoryKt;
@@ -33,7 +31,15 @@ public class DescriptionPresenter extends MvpBasePresenter<DescriptionView> {
             SimpleRecipe recipe = rep.get(recipeId);
             recipe.setFavorite(!recipe.isFavorite());
             rep.save(recipe);
+            view.showFavoriteButtonMarked(recipe.isFavorite());
         });
     }
 
+    public void clickEditRecipe() {
+        ifViewAttached(view -> view.startEditActivity(recipeId));
+    }
+
+    public void onItemBeenUpdate() {
+        ifViewAttached(this::loadRecipe);
+    }
 }

@@ -3,6 +3,7 @@ package by.wiskiw.studentfood.mvp.presenter.list;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import by.wiskiw.studentfood.di.bus.RecipeUpdateAction;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
 import by.wiskiw.studentfood.mvp.view.list.FavoriteRecipesListView;
 
@@ -46,5 +47,12 @@ public class FavoriteRecipesListPresenter extends RecipesListPresenter<FavoriteR
                 isMy.set(view.getRecipeRepository().get(recipeId).isMine())
         );
         return isMy.get();
+    }
+
+    @Override
+    public void onListItemUpdateEvent(RecipeUpdateAction action) {
+        super.onListItemUpdateEvent(action);
+        // обновляем список при получении события о изменении/удалении/добавлении элемента списка
+        ifViewAttached(this::loadList);
     }
 }

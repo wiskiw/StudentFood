@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import by.wiskiw.studentfood.di.bus.ListItemUpdateAction;
+import by.wiskiw.studentfood.di.bus.RecipeUpdateAction;
 import by.wiskiw.studentfood.mvp.model.RecipeCategory;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
 import by.wiskiw.studentfood.mvp.view.list.StaticRecipesListView;
@@ -36,7 +36,7 @@ public class StaticRecipesListPresenter extends RecipesListPresenter<StaticRecip
     }
 
     @Override
-    public void onListItemUpdateEvent(ListItemUpdateAction action) {
+    public void onListItemUpdateEvent(RecipeUpdateAction action) {
         super.onListItemUpdateEvent(action);
         // обновляем список при получении события о изменении/удалении/добавлении элемента списка
         ifViewAttached(this::loadList);
