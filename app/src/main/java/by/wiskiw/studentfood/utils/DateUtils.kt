@@ -3,11 +3,12 @@ package by.wiskiw.studentfood.utils
 import java.text.SimpleDateFormat
 import java.util.*
 
+@Deprecated("конвертирует только дату, но не время")
 object DateUtils {
 
-    fun format(timeMs: Long, pattern: String) = format(Date(timeMs), pattern)
+    fun formatData(dateMs: Long, pattern: String) = formatData(Date(dateMs), pattern)
 
-    fun format(date: Date, pattern: String): String {
+    fun formatData(date: Date, pattern: String): String {
         val simpleDateFormat = SimpleDateFormat(pattern, Locale.getDefault())
         return simpleDateFormat.format(date)
     }

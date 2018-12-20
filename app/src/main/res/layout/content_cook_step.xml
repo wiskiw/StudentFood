@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/text_view_text"
-            style="@style/Base.TextAppearance.AppCompat.Small"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:lines="8"

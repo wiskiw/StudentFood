@@ -13,12 +13,12 @@
 
         <steps>
             <cookStep>
-                <text>Cook step text</text>
-                <timeLong>122200</timeLong>
+                <text>Cook step text \n 13 min</text>
+                <timeLong>780000</timeLong>
             </cookStep>
             <cookStep>
-                <text>Cook step 2 text</text>
-                <timeLong>1000</timeLong>
+                <text>Cook step 2 text \n 66 min</text>
+                <timeLong>3960000</timeLong>
             </cookStep>
         </steps>
     </recipe>
