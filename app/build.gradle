@@ -47,4 +47,8 @@ dependencies {
     // Paper DB
     implementation 'io.paperdb:paperdb:2.6'
 
+    // Image picker
+    // https://github.com/esafirm/android-image-picker
+    implementation 'com.github.esafirm.android-image-picker:imagepicker:1.13.1'
+
 }

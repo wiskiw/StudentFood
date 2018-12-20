@@ -1,8 +1,7 @@
 package by.wiskiw.studentfood.mvp.model;
 
-import android.support.annotation.Nullable;
+import android.support.annotation.NonNull;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -28,8 +27,8 @@ public class SimpleRecipe implements DiffUtilItem {
     private boolean favorite = false;
 
 
-    @Nullable
-    private File headerImageFile;
+    @NonNull
+    private String headerImageFileName = "";
 
 
     public SimpleRecipe(int id) {
@@ -64,13 +63,13 @@ public class SimpleRecipe implements DiffUtilItem {
         this.description = description;
     }
 
-    @Nullable
-    public File getHeaderImageFile() {
-        return headerImageFile;
+    @NonNull
+    public String getHeaderImageFileName() {
+        return headerImageFileName;
     }
 
-    public void setHeaderImageFile(@Nullable File headerImageFile) {
-        this.headerImageFile = headerImageFile;
+    public void setHeaderImageFileName(@NonNull String headerImageFileName) {
+        this.headerImageFileName = headerImageFileName;
     }
 
     public List<CookStep> getSteps() {
@@ -131,7 +130,7 @@ public class SimpleRecipe implements DiffUtilItem {
                 ", steps=" + cookSteps +
                 ", mine=" + mine +
                 ", favorite=" + favorite +
-                ", headerImageFile=" + headerImageFile +
+                ", headerImageFileName=" + headerImageFileName +
                 '}';
     }
 }

@@ -1,8 +1,11 @@
 package by.wiskiw.studentfood.ui.activity.create.edit;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +15,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.esafirm.imagepicker.features.ImagePicker;
+import com.esafirm.imagepicker.features.ReturnMode;
+import com.esafirm.imagepicker.model.Image;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -21,6 +29,7 @@ import java.util.List;
 
 import by.wiskiw.studentfood.R;
 import by.wiskiw.studentfood.data.db.repository.RecipesRepositoryKt;
+import by.wiskiw.studentfood.data.image.RecipeImageFileManager;
 import by.wiskiw.studentfood.di.FoodApp;
 import by.wiskiw.studentfood.di.bus.ListItemUpdateAction;
 import by.wiskiw.studentfood.mvp.model.CookStep;
@@ -43,9 +52,12 @@ public class CreateEditActivity extends FoodAppActivity<CreateEditView, CreateEd
     private EditText titleEt;
     private EditText descriptionEt;
     private TextView imagePathTv;
+    private ImageView recipeIv;
 
     private int listPos;
     private SortCookStepListAdapter cookStepsAdapter;
+
+    private RecipeImageFileManager recipeImageFm = new RecipeImageFileManager(this);
 
 
     public static void putRecipeId(@NonNull Intent launchIntent, int id) {
@@ -75,6 +87,7 @@ public class CreateEditActivity extends FoodAppActivity<CreateEditView, CreateEd
         titleEt = findViewById(R.id.edit_text_title);
         descriptionEt = findViewById(R.id.edit_text_description);
         imagePathTv = findViewById(R.id.text_view_image_path);
+        recipeIv = findViewById(R.id.image_view_choose_image);
 
         cookStepsRv.setLayoutManager(new LinearLayoutManager(this));
         cookStepsRv.setItemAnimator(new DefaultItemAnimator());
@@ -88,6 +101,26 @@ public class CreateEditActivity extends FoodAppActivity<CreateEditView, CreateEd
         }
 
         setupImageChooseButton();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, final int resultCode, Intent data) {
+        if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
+
+            Image image = ImagePicker.getFirstImageOrNull(data);
+            imagePathTv.setText(image.getPath());
+
+            File imageFile = recipeImageFm.saveImageToAppFolder(image);
+
+            SimpleRecipe recipe = presenter.getRecipe();
+            if (recipe != null && imageFile != null) {
+                String imageFileName = imageFile.getName();
+                recipe.setHeaderImageFileName(imageFileName);
+                showHeaderRecipeImage(imageFileName);
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override
@@ -132,12 +165,19 @@ public class CreateEditActivity extends FoodAppActivity<CreateEditView, CreateEd
         return recipesRepository;
     }
 
+    private void showHeaderRecipeImage(@Nullable String recipeImageFileName) {
+        if (recipeImageFileName == null || recipeImageFileName.isEmpty()) return;
+
+        Bitmap bitmap = recipeImageFm.getImageBitmapByName(recipeImageFileName);
+        if (bitmap != null) {
+            recipeIv.setImageBitmap(bitmap);
+        }
+    }
+
     @Override
     public void showRecipe(SimpleRecipe recipe) {
-        File imageFile = recipe.getHeaderImageFile();
-        if (imageFile != null) {
-            imagePathTv.setText(imageFile.getName());
-        }
+        showHeaderRecipeImage(recipe.getHeaderImageFileName());
+
         titleEt.setText(recipe.getTitle());
         descriptionEt.setText(recipe.getDescription());
 
@@ -180,6 +220,21 @@ public class CreateEditActivity extends FoodAppActivity<CreateEditView, CreateEd
 
     private void setupImageChooseButton() {
         chooseImageContainer.setOnClickListener(v -> {
+
+            ImagePicker.create(this)
+                    .returnMode(ReturnMode.ALL) // set whether pick and / or camera action should return immediate result or not.
+                    .folderMode(true) // folder mode (false by default)
+                    .toolbarFolderTitle("Folders")
+                    .toolbarImageTitle("Tap to select") // image selection title
+                    .toolbarArrowColor(Color.WHITE) // Toolbar 'up' arrow color
+                    .includeVideo(false) // Show video on image picker
+                    .single() // single mode
+                    .imageDirectory("Camera") // directory name for captured image  ("Camera" folder by default)
+                    .theme(R.style.AppTheme_CustomImagePickerTheme) // must inherit ef_BaseTheme. please refer to sample
+                    .enableLog(false) // disabling log
+                    //.imageLoader(new GrayscaleImageLoder()) // custom image loader, must be serializeable
+                    .start(); // start image picker activity with request code
+
             // TODO show image choose dialog
             // todo запись image file
         });

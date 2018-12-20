@@ -5,6 +5,7 @@
         <description>Desc 1</description>
         <mine>false</mine>
         <favorite>false</favorite>
+        <image>0.jpg</image>
         <categories>
             <category>CATEGORY_A</category>
             <category>CATEGORY_B</category>
@@ -26,6 +27,7 @@
         <title>Title 2</title>
         <description>Desc 2</description>
         <mine>true</mine>
+        <image>61.jpg</image>
         <favorite>false</favorite>
         <categories>
             <category>CATEGORY_B</category>
@@ -46,6 +48,7 @@
     <recipe id="3">
         <title>Recipe 3</title>
         <description>Recipe Desc 3</description>
+        <image>61.jpg</image>
         <mine>true</mine>
         <favorite>true</favorite>
         <categories>
@@ -67,6 +70,7 @@
 
     <recipe id="4">
         <title>Recipe 4</title>
+        <image>61.jpg</image>
         <description>Recipe Desc 4</description>
         <mine>false</mine>
         <favorite>true</favorite>
