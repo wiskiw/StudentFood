@@ -35,7 +35,7 @@ class RecipesRepositoryKt(val context: Context) {
     public fun get(recipeId: Int): SimpleRecipe {
         val response = recipeDao.get(context, recipeId)
         return if (response.isOk) {
-            response.data
+            SimpleRecipe(response.data)
         } else {
             SimpleRecipe.nullRecipe()
         }

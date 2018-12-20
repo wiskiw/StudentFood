@@ -1,6 +1,7 @@
 package by.wiskiw.studentfood.ui.activity.description;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -16,6 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 import by.wiskiw.studentfood.R;
 import by.wiskiw.studentfood.data.db.repository.RecipesRepositoryKt;
+import by.wiskiw.studentfood.data.image.RecipeImageFileManager;
 import by.wiskiw.studentfood.di.FoodApp;
 import by.wiskiw.studentfood.mvp.model.CookStep;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
@@ -79,7 +81,6 @@ public class DescriptionActivity extends FoodAppActivity<DescriptionView, Descri
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_description);
-
         parseArgs();
 
         cookingLevelsLl = findViewById(R.id.linear_layout_cooking_levels);
@@ -94,11 +95,13 @@ public class DescriptionActivity extends FoodAppActivity<DescriptionView, Descri
         descriptionTv = findViewById(R.id.text_view_description);
 
         setupToolbar();
+        getPresenter().loadRecipe(this);
     }
 
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        enableToolbarBackArror(true);
     }
 
     private void setupToolbarTitle(@NotNull String title) {
@@ -130,6 +133,12 @@ public class DescriptionActivity extends FoodAppActivity<DescriptionView, Descri
         setupToolbarTitle(recipe.getTitle());
         setDescription(recipe.getDescription());
         recipe.getSteps().forEach(this::addCookStep);
+
+        RecipeImageFileManager recipeImageFm = new RecipeImageFileManager(this);
+        Bitmap bitmap = recipeImageFm.getImageBitmapByName(recipe.getHeaderImageFileName());
+        if (bitmap != null) {
+            headerIv.setImageBitmap(bitmap);
+        }
     }
 
     @Override

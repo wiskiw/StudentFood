@@ -18,7 +18,7 @@ public class DescriptionPresenter extends MvpBasePresenter<DescriptionView> {
         this.recipeListPos = recipeListPos;
     }
 
-    private void loadRecipe(DescriptionView view) {
+    public void loadRecipe(DescriptionView view) {
         SimpleRecipe simpleRecipe = view.getRecipesRepository().get(recipeId);
         if (!simpleRecipe.isNull()) {
             view.showRecipe(simpleRecipe);
@@ -26,13 +26,6 @@ public class DescriptionPresenter extends MvpBasePresenter<DescriptionView> {
             view.showRecipeNotFound(recipeId);
         }
     }
-
-    @Override
-    public void attachView(@NonNull DescriptionView view) {
-        super.attachView(view);
-        loadRecipe(view);
-    }
-
 
     public void clickAddToFavorite() {
         ifViewAttached(view -> {

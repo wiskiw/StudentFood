@@ -39,6 +39,17 @@ public class SimpleRecipe implements DiffUtilItem {
         return new SimpleRecipe(NULL_ID);
     }
 
+    public SimpleRecipe(SimpleRecipe other) {
+        this.id = other.id;
+        this.title = other.title;
+        this.description = other.description;
+        this.steps = other.steps;
+        this.categories = other.categories;
+        this.mine = other.mine;
+        this.favorite = other.favorite;
+        this.headerImageFileName = other.headerImageFileName;
+    }
+
     public int getId() {
         return id;
     }

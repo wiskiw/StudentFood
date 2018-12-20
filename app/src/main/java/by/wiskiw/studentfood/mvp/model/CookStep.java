@@ -13,6 +13,14 @@ public class CookStep implements DiffUtilItem {
     private String text = "";
     private Long time = 0L;
 
+    public CookStep() {
+    }
+
+    public CookStep(CookStep other) {
+        this.text = other.text;
+        this.time = other.time;
+    }
+
     public String getText() {
         return text;
     }

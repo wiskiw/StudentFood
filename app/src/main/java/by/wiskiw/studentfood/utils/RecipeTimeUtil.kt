@@ -1,6 +1,7 @@
 package by.wiskiw.studentfood.utils
 
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 object RecipeTimeUtil {
 
@@ -19,7 +20,7 @@ object RecipeTimeUtil {
             calendar.get(GregorianCalendar.MINUTE).toString() + " min"
         }
         */
-        return calendar.get(GregorianCalendar.MINUTE).toString() + " min"
+        return TimeUnit.MILLISECONDS.toMinutes(timeMs).toString() + " min"
 
     }
 }

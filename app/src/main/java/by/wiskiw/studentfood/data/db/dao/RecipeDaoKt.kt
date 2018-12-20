@@ -17,7 +17,7 @@ object RecipeDaoKt : RecipeDao {
 
     private var recipeSet: MutableSet<SimpleRecipe>? = null
 
-    override fun getAll(context: Context) = getSet(context).toList()
+    override fun getAll(context: Context) = ArrayList(getSet(context))
 
     private fun getSet(context: Context): MutableSet<SimpleRecipe> {
         recipeSet?.let {

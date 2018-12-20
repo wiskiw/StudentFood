@@ -23,6 +23,8 @@ import com.esafirm.imagepicker.features.ReturnMode;
 import com.esafirm.imagepicker.model.Image;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.List;
@@ -32,6 +34,7 @@ import by.wiskiw.studentfood.R;
 import by.wiskiw.studentfood.data.db.repository.RecipesRepositoryKt;
 import by.wiskiw.studentfood.data.image.RecipeImageFileManager;
 import by.wiskiw.studentfood.di.FoodApp;
+import by.wiskiw.studentfood.di.bus.CookStepModifiedEvent;
 import by.wiskiw.studentfood.di.bus.ListItemUpdateAction;
 import by.wiskiw.studentfood.mvp.model.CookStep;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
@@ -103,6 +106,18 @@ public class CreateEditActivity extends FoodAppActivity<CreateEditView, CreateEd
         }
 
         setupImageChooseButton();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -252,9 +267,19 @@ public class CreateEditActivity extends FoodAppActivity<CreateEditView, CreateEd
         long minutes = TimeUnit.MILLISECONDS.toMinutes(timeMs);
 
         CookStepEditDialog dialogFragment =
-                CookStepEditDialog.newInstance(cookStep.getText(), String.valueOf(minutes));
+                CookStepEditDialog.newInstance(listPos, cookStep.getText(), String.valueOf(minutes));
         dialogFragment.show(getSupportFragmentManager(), "cook-step-edit");
 
         //cookStepsAdapter.notifyItemChanged(listPos);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onCookStepModified(CookStepModifiedEvent event) {
+        int lPos = event.getListPos();
+        CookStep cookStep = new CookStep(cookStepsAdapter.getList().get(lPos));
+        cookStep.setText(event.getTest());
+        cookStep.setTime(TimeUnit.MINUTES.toMillis(Integer.parseInt(event.getTime())));
+        cookStepsAdapter.getList().set(lPos, cookStep);
+        cookStepsAdapter.notifyItemChanged(lPos);
     }
 }

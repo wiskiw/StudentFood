@@ -11,22 +11,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import org.greenrobot.eventbus.EventBus;
+
 import by.wiskiw.studentfood.R;
+import by.wiskiw.studentfood.di.bus.CookStepModifiedEvent;
 
 public class CookStepEditDialog extends DialogFragment {
 
+    public static final String ARGS_KEY_LIST_POS = "b-list_pos";
     public static final String ARGS_KEY_TEXT = "b-text";
     public static final String ARGS_KEY_TIME = "b-time";
 
     private EditText descriptionEt;
     private EditText timeEt;
 
+    private int listPos = -1;
     private String cookStepText = "";
     private String cookStepTime = "";
 
-    public static CookStepEditDialog newInstance(String text, String time) {
+    public static CookStepEditDialog newInstance(int listPos, String text, String time) {
         CookStepEditDialog dialog = new CookStepEditDialog();
         Bundle args = new Bundle();
+        args.putInt(ARGS_KEY_LIST_POS, listPos);
         args.putString(ARGS_KEY_TEXT, text);
         args.putString(ARGS_KEY_TIME, time);
         dialog.setArguments(args);
@@ -38,6 +44,7 @@ public class CookStepEditDialog extends DialogFragment {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         if (args != null) {
+            listPos = args.getInt(ARGS_KEY_LIST_POS);
             cookStepText = args.getString(ARGS_KEY_TEXT);
             cookStepTime = args.getString(ARGS_KEY_TIME);
         }
@@ -54,6 +61,14 @@ public class CookStepEditDialog extends DialogFragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
+    private void notifyListItemUpdate() {
+        EventBus.getDefault().post(new CookStepModifiedEvent(
+                listPos,
+                cookStepText,
+                cookStepTime
+        ));
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -61,7 +76,9 @@ public class CookStepEditDialog extends DialogFragment {
                 .setTitle("Enter Players")
                 .setPositiveButton("OK",
                         (dialog, whichButton) -> {
-                            // do something...
+                            cookStepText = descriptionEt.getText().toString().trim();
+                            cookStepTime = timeEt.getText().toString().trim();
+                            notifyListItemUpdate();
                         }
                 )
                 .setNegativeButton("Cancel",
