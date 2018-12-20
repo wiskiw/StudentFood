@@ -2,7 +2,10 @@ package by.wiskiw.studentfood.mvp.presenter;
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 
+import org.greenrobot.eventbus.EventBus;
+
 import by.wiskiw.studentfood.data.db.repository.RecipesRepositoryKt;
+import by.wiskiw.studentfood.di.bus.RecipeUpdateAction;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
 import by.wiskiw.studentfood.mvp.view.DescriptionView;
 
@@ -32,6 +35,7 @@ public class DescriptionPresenter extends MvpBasePresenter<DescriptionView> {
             recipe.setFavorite(!recipe.isFavorite());
             rep.save(recipe);
             view.showFavoriteButtonMarked(recipe.isFavorite());
+            EventBus.getDefault().post(new RecipeUpdateAction());
         });
     }
 

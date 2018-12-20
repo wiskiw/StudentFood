@@ -157,6 +157,8 @@ public class DescriptionActivity extends FoodAppActivity<DescriptionView, Descri
     public void showRecipe(SimpleRecipe recipe) {
         setupToolbarTitle(recipe.getTitle());
         setDescription(recipe.getDescription());
+
+        cookingLevelsLl.removeAllViews();
         recipe.getSteps().forEach(this::addCookStep);
 
         RecipeImageFileManager recipeImageFm = new RecipeImageFileManager(this);

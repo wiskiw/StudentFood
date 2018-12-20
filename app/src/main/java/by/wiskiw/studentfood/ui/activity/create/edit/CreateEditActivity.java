@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,6 +50,7 @@ import by.wiskiw.studentfood.ui.dialog.CookStepEditDialog;
 public class CreateEditActivity extends FoodAppActivity<CreateEditView, CreateEditPresenter>
         implements CreateEditView, SortCookStepListAdapter.ClickListener {
 
+    private static final String DIALOG_TAG_COOK_STEP_EDIT = "cook-step-edit";
     private static final String INTENT_TAG_RECIPE_ID = "recipe-id";
     private static final String INTENT_TAG_RECIPE_LIST_POS = "list-pos";
     private RecipesRepositoryKt recipesRepository;
@@ -58,6 +61,7 @@ public class CreateEditActivity extends FoodAppActivity<CreateEditView, CreateEd
     private EditText descriptionEt;
     private TextView imagePathTv;
     private ImageView recipeIv;
+    private Button addCookStepBtn;
 
     private int listPos;
     private SortCookStepListAdapter cookStepsAdapter;
@@ -92,7 +96,13 @@ public class CreateEditActivity extends FoodAppActivity<CreateEditView, CreateEd
         titleEt = findViewById(R.id.edit_text_title);
         descriptionEt = findViewById(R.id.edit_text_description);
         imagePathTv = findViewById(R.id.text_view_image_path);
+
+        addCookStepBtn = findViewById(R.id.button_add_cook_step);
+        addCookStepBtn.setOnClickListener(v -> CookStepEditDialog.newEmptyInstance().show(getSupportFragmentManager(), DIALOG_TAG_COOK_STEP_EDIT));
+
         recipeIv = findViewById(R.id.image_view_choose_image);
+        int color = ResourcesCompat.getColor(getResources(), R.color.colorButton, null);
+        recipeIv.setColorFilter(color);
 
         cookStepsRv.setLayoutManager(new LinearLayoutManager(this));
         cookStepsRv.setItemAnimator(new DefaultItemAnimator());
@@ -187,7 +197,9 @@ public class CreateEditActivity extends FoodAppActivity<CreateEditView, CreateEd
 
         Bitmap bitmap = recipeImageFm.getImageBitmapByName(recipeImageFileName);
         if (bitmap != null) {
+            recipeIv.clearColorFilter();
             recipeIv.setImageBitmap(bitmap);
+            recipeIv.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
     }
 
@@ -267,18 +279,25 @@ public class CreateEditActivity extends FoodAppActivity<CreateEditView, CreateEd
 
         CookStepEditDialog dialogFragment =
                 CookStepEditDialog.newInstance(listPos, cookStep.getText(), String.valueOf(minutes));
-        dialogFragment.show(getSupportFragmentManager(), "cook-step-edit");
-
-        //cookStepsAdapter.notifyItemChanged(listPos);
+        dialogFragment.show(getSupportFragmentManager(), DIALOG_TAG_COOK_STEP_EDIT);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onCookStepModified(CookStepModifiedEvent event) {
         int lPos = event.getListPos();
-        CookStep cookStep = new CookStep(cookStepsAdapter.getList().get(lPos));
-        cookStep.setText(event.getTest());
-        cookStep.setTime(TimeUnit.MINUTES.toMillis(Integer.parseInt(event.getTime())));
-        cookStepsAdapter.getList().set(lPos, cookStep);
-        cookStepsAdapter.notifyItemChanged(lPos);
+        CookStep cookStep;
+        if (lPos >= 0) {
+            cookStep = new CookStep(cookStepsAdapter.getList().get(lPos));
+            cookStep.setText(event.getTest());
+            cookStep.setTime(TimeUnit.MINUTES.toMillis(Integer.parseInt(event.getTime())));
+            cookStepsAdapter.getList().set(lPos, cookStep);
+            cookStepsAdapter.notifyItemChanged(lPos);
+        } else {
+            cookStep = new CookStep();
+            cookStep.setText(event.getTest());
+            cookStep.setTime(TimeUnit.MINUTES.toMillis(Integer.parseInt(event.getTime())));
+            cookStepsAdapter.getList().add(cookStep);
+            cookStepsAdapter.notifyItemInserted(cookStepsAdapter.getList().size() - 1);
+        }
     }
 }

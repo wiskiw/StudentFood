@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.main.MainActivity"
+        <activity
+            android:name=".ui.activity.main.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,22 +25,27 @@
         <activity
             android:name=".ui.activity.list.StaticRecipesListActivity"
             android:label="@string/title_activity_list"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.activity.list.FavoriteRecipesListActivity"
             android:label="@string/title_activity_list"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.activity.list.MyRecipesListActivity"
             android:label="@string/title_activity_list"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.activity.description.DescriptionActivity"
             android:label="@string/title_activity_scrolling"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activity.create.edit.CreateEditActivity"
             android:label="@string/create_edit_activity_create_title"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
     </application>
 

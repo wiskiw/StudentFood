@@ -29,8 +29,12 @@ public class CookStepEditDialog extends DialogFragment {
     private String cookStepText = "";
     private String cookStepTime = "";
 
+    public static CookStepEditDialog newEmptyInstance() {
+        return new CookStepEditDialog();
+    }
+
     public static CookStepEditDialog newInstance(int listPos, String text, String time) {
-        CookStepEditDialog dialog = new CookStepEditDialog();
+        CookStepEditDialog dialog = newEmptyInstance();
         Bundle args = new Bundle();
         args.putInt(ARGS_KEY_LIST_POS, listPos);
         args.putString(ARGS_KEY_TEXT, text);
