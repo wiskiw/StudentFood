@@ -26,6 +26,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import by.wiskiw.studentfood.R;
 import by.wiskiw.studentfood.data.db.repository.RecipesRepositoryKt;
@@ -39,6 +40,7 @@ import by.wiskiw.studentfood.mvp.view.CreateEditView;
 import by.wiskiw.studentfood.ui.activity.FoodAppActivity;
 import by.wiskiw.studentfood.ui.adapter.cook.step.DragDropItemTouchHelperCallback;
 import by.wiskiw.studentfood.ui.adapter.cook.step.SortCookStepListAdapter;
+import by.wiskiw.studentfood.ui.dialog.CookStepEditDialog;
 
 public class CreateEditActivity extends FoodAppActivity<CreateEditView, CreateEditPresenter>
         implements CreateEditView, SortCookStepListAdapter.ClickListener {
@@ -234,9 +236,6 @@ public class CreateEditActivity extends FoodAppActivity<CreateEditView, CreateEd
                     .enableLog(false) // disabling log
                     //.imageLoader(new GrayscaleImageLoder()) // custom image loader, must be serializeable
                     .start(); // start image picker activity with request code
-
-            // TODO show image choose dialog
-            // todo запись image file
         });
     }
 
@@ -249,8 +248,13 @@ public class CreateEditActivity extends FoodAppActivity<CreateEditView, CreateEd
 
     @Override
     public void onCookStepEditStep(int listPos, CookStep cookStep) {
-        // todo start edit form
-        cookStepsAdapter.notifyItemChanged(listPos);
+        long timeMs = cookStep.getTime();
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(timeMs);
 
+        CookStepEditDialog dialogFragment =
+                CookStepEditDialog.newInstance(cookStep.getText(), String.valueOf(minutes));
+        dialogFragment.show(getSupportFragmentManager(), "cook-step-edit");
+
+        //cookStepsAdapter.notifyItemChanged(listPos);
     }
 }

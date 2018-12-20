@@ -35,6 +35,8 @@
     <string name="create_edit_description_hint">Описание</string>
     <string name="create_edit_steps_list_title">Этапы</string>
     <string name="create_edit_image_path_hint">Выберите фотографию</string>
+    <string name="create_edit_cook_step_description_hint">Описание шага</string>
+    <string name="create_edit_cook_step_time_hint">Время готовки</string>
 
     <string name="title_activity_list">ListActivity</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
