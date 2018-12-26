@@ -77,7 +77,7 @@ public class CookStepEditDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
-                .setTitle("Enter Players")
+                .setTitle(getResources().getString(R.string.create_edit_cook_step_dialog_title))
                 .setPositiveButton("OK",
                         (dialog, whichButton) -> {
                             cookStepText = descriptionEt.getText().toString().trim();

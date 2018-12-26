@@ -35,7 +35,7 @@
                     android:alpha="0.7"
                     android:scaleType="centerCrop"
                     android:scaleX="1.1"
-                    android:src="@drawable/template" />
+                    android:src="@drawable/breakfast" />
 
                 <TextView
                     style="@style/Base.TextAppearance.AppCompat.Large"
@@ -44,7 +44,7 @@
                     android:layout_gravity="center"
                     android:background="@drawable/round_corners"
                     android:padding="8dp"
-                    android:text="@string/category_a_title"
+                    android:text="@string/category_breakfast_title"
                     android:textAllCaps="true"
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold" />
@@ -66,10 +66,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:alpha="0.7"
-                    android:rotation="180"
                     android:scaleType="centerCrop"
                     android:scaleX="1.1"
-                    android:src="@drawable/template" />
+                    android:src="@drawable/dinner" />
 
                 <TextView
                     style="@style/Base.TextAppearance.AppCompat.Large"
@@ -78,7 +77,7 @@
                     android:layout_gravity="center"
                     android:background="@drawable/round_corners"
                     android:padding="8dp"
-                    android:text="@string/category_b_title"
+                    android:text="@string/category_dinner_title"
                     android:textAllCaps="true"
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold" />
@@ -103,7 +102,7 @@
                     android:padding="8dp"
                     android:scaleType="centerCrop"
                     android:scaleX="1.2"
-                    android:src="@drawable/template" />
+                    android:src="@drawable/fastfood" />
 
                 <TextView
                     style="@style/Base.TextAppearance.AppCompat.Large"
@@ -112,7 +111,7 @@
                     android:layout_gravity="center"
                     android:background="@drawable/round_corners"
                     android:padding="8dp"
-                    android:text="@string/category_c_title"
+                    android:text="@string/category_fastfood_title"
                     android:textAllCaps="true"
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold" />
@@ -135,10 +134,9 @@
                     android:layout_height="match_parent"
                     android:alpha="0.7"
                     android:padding="8dp"
-                    android:rotation="180"
                     android:scaleType="centerCrop"
                     android:scaleX="2.2"
-                    android:src="@drawable/template" />
+                    android:src="@drawable/favorite" />
 
                 <TextView
                     style="@style/Base.TextAppearance.AppCompat.Large"
@@ -172,7 +170,7 @@
                     android:padding="8dp"
                     android:scaleType="centerCrop"
                     android:scaleX="1.2"
-                    android:src="@drawable/template" />
+                    android:src="@drawable/my_food" />
 
                 <TextView
                     style="@style/Base.TextAppearance.AppCompat.Large"

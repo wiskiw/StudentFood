@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <recipes>
     <recipe id="1">
-        <title>Title 1</title>
-        <description>Desc 1</description>
+        <title>Сырники</title>
+        <description>Главный секрет идеальных сырников — а точнее творожников, — творог нужно протереть через мелкое сито и отжать от влаги. Жирность предпочтительна не больше и не меньше 9%. Тесто должно получиться эластичным, чтобы при надавливании сырник не треснул на сковородке, а сохранил форму. Если все сделать правильно, получатся нежные однородные кругляшки под плотной румяной корочкой. Сырники можно запекать в духовке или готовить на пару. В рецепте не исключаются эксперименты с начинкой — сухофрукты, орехи, свежие фрукты и даже картофель лишними не будут.</description>
         <mine>false</mine>
-        <favorite>false</favorite>
+        <favorite>true</favorite>
         <image>0.jpg</image>
         <categories>
             <category>CATEGORY_A</category>
@@ -13,23 +13,28 @@
 
         <steps>
             <cookStep>
-                <text>Cook step text \n 13 min</text>
+                <text>Творог нужно протереть через мелкое сито и отжать от влаги</text>
                 <timeLong>780000</timeLong>
             </cookStep>
             <cookStep>
-                <text>Cook step 2 text \n 66 min</text>
+                <text>Тесто должно получиться эластичным, чтобы при надавливании сырник не треснул на сковородке, а сохранил форму</text>
+                <timeLong>3960000</timeLong>
+            </cookStep>
+            <cookStep>
+                <text>Запекать в духовке или готовить на пару</text>
                 <timeLong>3960000</timeLong>
             </cookStep>
         </steps>
     </recipe>
 
     <recipe id="2">
-        <title>Title 2</title>
-        <description>Desc 2</description>
+        <title>Американские блины</title>
+        <description>Панкейки (Pancakes), или американские блинчики -это одно из самых распространённых блюд Соединенных штатов</description>
         <mine>true</mine>
         <image>61.jpg</image>
         <favorite>false</favorite>
         <categories>
+            <category>CATEGORY_A</category>
             <category>CATEGORY_B</category>
         </categories>
 

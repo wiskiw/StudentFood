@@ -18,13 +18,13 @@ public enum RecipeCategory {
         int strId = -1;
         switch (this) {
             case CATEGORY_A:
-                strId = R.string.category_a_title;
+                strId = R.string.category_breakfast_title;
                 break;
             case CATEGORY_B:
-                strId = R.string.category_b_title;
+                strId = R.string.category_dinner_title;
                 break;
             case CATEGORY_C:
-                strId = R.string.category_c_title;
+                strId = R.string.category_fastfood_title;
                 break;
             default:
                 if (BuildConfig.DEBUG) {
