@@ -17,12 +17,16 @@ public class StaticRecipesListPresenter extends RecipesListPresenter<StaticRecip
     public void attachView(@NonNull StaticRecipesListView view) {
         super.attachView(view);
         recipeCategory = view.getRecipeCategory();
-        loadList(view);
+        loadList();
     }
 
-    private void loadList(StaticRecipesListView view) {
-        List<SimpleRecipe> recipes = view.getRecipeRepository().getAll(recipeCategory);
-        view.showRecipes(recipes);
+    @Override
+    protected void loadList() {
+        ifViewAttached(view -> {
+            List<SimpleRecipe> recipes = view.getRecipeRepository().getAll(recipeCategory);
+            sort(recipes);
+            view.showRecipes(recipes);
+        });
     }
 
     public void deleteRecipe(int listPos, SimpleRecipe simpleRecipe) {
@@ -30,7 +34,7 @@ public class StaticRecipesListPresenter extends RecipesListPresenter<StaticRecip
             if (view.getRecipeRepository().delete(simpleRecipe.getId())) {
                 // если был удален из БД
                 // обновляем список
-                loadList(view);
+                loadList();
             }
         });
     }
@@ -39,6 +43,6 @@ public class StaticRecipesListPresenter extends RecipesListPresenter<StaticRecip
     public void onListItemUpdateEvent(RecipeUpdateAction action) {
         super.onListItemUpdateEvent(action);
         // обновляем список при получении события о изменении/удалении/добавлении элемента списка
-        ifViewAttached(this::loadList);
+        loadList();
     }
 }

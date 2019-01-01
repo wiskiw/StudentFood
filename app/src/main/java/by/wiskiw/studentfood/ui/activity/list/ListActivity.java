@@ -20,6 +20,7 @@ import by.wiskiw.studentfood.data.db.repository.RecipesRepositoryKt;
 import by.wiskiw.studentfood.di.FoodApp;
 import by.wiskiw.studentfood.di.bus.RecipeUpdateAction;
 import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
+import by.wiskiw.studentfood.mvp.model.SortBy;
 import by.wiskiw.studentfood.mvp.presenter.list.RecipesListPresenter;
 import by.wiskiw.studentfood.mvp.view.list.RecipesListView;
 import by.wiskiw.studentfood.ui.activity.FoodAppActivity;
@@ -61,6 +62,12 @@ public abstract class ListActivity<V extends RecipesListView, P extends RecipesL
             case R.id.toolbar_action_add:
                 Intent launchIntent = new Intent(this, CreateEditActivity.class);
                 startActivity(launchIntent);
+                return true;
+            case R.id.toolbar_action_sort_by_name:
+                getPresenter().onShortActionCalled(SortBy.NAME);
+                return true;
+            case R.id.toolbar_action_sort_by_cook_time:
+                getPresenter().onShortActionCalled(SortBy.COOK_TIME);
                 return true;
         }
         return super.onOptionsItemSelected(item);

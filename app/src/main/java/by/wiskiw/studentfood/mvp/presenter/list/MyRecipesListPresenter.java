@@ -12,17 +12,16 @@ public class MyRecipesListPresenter extends RecipesListPresenter<MyRecipesListVi
     public void attachView(MyRecipesListView view) {
         super.attachView(view);
 
-        loadList(view);
+        loadList();
     }
 
-    private void loadList(MyRecipesListView view) {
-        List<SimpleRecipe> recipes = view.getRecipeRepository().getAllMine();
-        view.showRecipes(recipes);
-    }
-
-    public void editRecipe(int listPos, SimpleRecipe simpleRecipe) {
-        // todo start edit activity
-
+    @Override
+    protected void loadList() {
+        ifViewAttached(view -> {
+            List<SimpleRecipe> recipes = view.getRecipeRepository().getAllMine();
+            sort(recipes);
+            view.showRecipes(recipes);
+        });
     }
 
     public void deleteRecipe(int listPos, SimpleRecipe simpleRecipe) {
@@ -30,7 +29,7 @@ public class MyRecipesListPresenter extends RecipesListPresenter<MyRecipesListVi
             if (view.getRecipeRepository().delete(simpleRecipe.getId())) {
                 // если был удален
                 // обновляем список
-                loadList(view);
+                loadList();
             }
         });
     }
@@ -39,7 +38,7 @@ public class MyRecipesListPresenter extends RecipesListPresenter<MyRecipesListVi
     public void onListItemUpdateEvent(RecipeUpdateAction action) {
         super.onListItemUpdateEvent(action);
         // обновляем список при получении события о изменении/удалении/добавлении элемента списка
-        ifViewAttached(this::loadList);
+        loadList();
     }
 
 }

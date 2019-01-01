@@ -13,6 +13,10 @@
         <item>Удалить</item>
     </string-array>
 
+    <string name="list_toolbar_menu_add">Добавить</string>
+    <string name="list_toolbar_menu_short_by_name">По имени</string>
+    <string name="list_toolbar_menu_short_by_cook_time">По времени готовки</string>
+
 
     <string name="my_recipes_list_activity_title">Мои рецепты</string>
     <string-array name="my_recipes_list_item_actions">

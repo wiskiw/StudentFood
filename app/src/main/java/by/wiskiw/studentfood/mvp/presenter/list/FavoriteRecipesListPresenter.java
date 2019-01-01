@@ -13,12 +13,16 @@ public class FavoriteRecipesListPresenter extends RecipesListPresenter<FavoriteR
     public void attachView(FavoriteRecipesListView view) {
         super.attachView(view);
 
-        loadList(view);
+        loadList();
     }
 
-    private void loadList(FavoriteRecipesListView view) {
-        List<SimpleRecipe> recipes = view.getRecipeRepository().getAllFavorite();
-        view.showRecipes(recipes);
+    @Override
+    protected void loadList() {
+        ifViewAttached(view -> {
+            List<SimpleRecipe> recipes = view.getRecipeRepository().getAllFavorite();
+            sort(recipes);
+            view.showRecipes(recipes);
+        });
     }
 
     public void deleteRecipe(int listPos, SimpleRecipe simpleRecipe) {
@@ -26,7 +30,7 @@ public class FavoriteRecipesListPresenter extends RecipesListPresenter<FavoriteR
             if (view.getRecipeRepository().delete(simpleRecipe.getId())) {
                 // если был удален
                 // обновляем список
-                loadList(view);
+                loadList();
             }
         });
     }
@@ -36,7 +40,7 @@ public class FavoriteRecipesListPresenter extends RecipesListPresenter<FavoriteR
             if (view.getRecipeRepository().removeFromFavorite(simpleRecipe.getId())) {
                 // если был убран
                 // обновляем список
-                loadList(view);
+                loadList();
             }
         });
     }
@@ -53,6 +57,6 @@ public class FavoriteRecipesListPresenter extends RecipesListPresenter<FavoriteR
     public void onListItemUpdateEvent(RecipeUpdateAction action) {
         super.onListItemUpdateEvent(action);
         // обновляем список при получении события о изменении/удалении/добавлении элемента списка
-        ifViewAttached(this::loadList);
+        loadList();
     }
 }
