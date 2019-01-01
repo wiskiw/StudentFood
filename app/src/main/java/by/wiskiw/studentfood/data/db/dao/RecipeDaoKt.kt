@@ -11,7 +11,7 @@ import io.paperdb.Book
 object RecipeDaoKt : RecipeDao {
 
     private const val TAG_RECIPES = "recipes"
-    private const val ALWAYS_REREAD_DUMMY = true
+    private const val ALWAYS_REREAD_DUMMY = false
 
     private val book: Book = DatabaseHolder.getDatabase()
 
