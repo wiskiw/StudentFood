@@ -113,6 +113,10 @@ public class DescriptionActivity extends FoodAppActivity<DescriptionView, Descri
 
         editRecipeBtn = findViewById(R.id.image_view_edit);
         editRecipeBtn.setOnClickListener(v -> presenter.clickEditRecipe());
+        editRecipeBtn.setOnLongClickListener(v -> {
+            presenter.clickEditRecipe();
+            return false;
+        });
 
         action3Iv = findViewById(R.id.image_view_action_3);
     }
@@ -169,9 +173,11 @@ public class DescriptionActivity extends FoodAppActivity<DescriptionView, Descri
 
         showFavoriteButtonMarked(recipe.isFavorite());
 
+        /*
         boolean isEditAllow = recipe.isMine();
         editRecipeBtn.setEnabled(isEditAllow);
         editRecipeBtn.setAlpha(isEditAllow ? 1f : 0.5f);
+        */
     }
 
     @Override

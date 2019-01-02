@@ -11,7 +11,6 @@ import by.wiskiw.studentfood.mvp.model.SimpleRecipe;
 import by.wiskiw.studentfood.mvp.presenter.list.StaticRecipesListPresenter;
 import by.wiskiw.studentfood.mvp.view.list.StaticRecipesListView;
 import by.wiskiw.studentfood.ui.ActionDialogBuilder;
-import by.wiskiw.studentfood.ui.activity.description.DescriptionActivity;
 
 public class StaticRecipesListActivity extends ListActivity<StaticRecipesListView, StaticRecipesListPresenter>
         implements StaticRecipesListView {
@@ -51,6 +50,7 @@ public class StaticRecipesListActivity extends ListActivity<StaticRecipesListVie
         ActionDialogBuilder dialogBuilder = new ActionDialogBuilder(this);
         dialogBuilder.setTitle(item.getTitle());
         dialogBuilder.setActions(getResources().getStringArray(R.array.static_recipes_list_item_actions));
+        dialogBuilder.setItemEnable(1, false);
         dialogBuilder.setListener(actionIndex -> {
             switch (actionIndex) {
                 case 0:
