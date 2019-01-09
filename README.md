@@ -3,6 +3,13 @@
 
 **Student Food** - simple Java Android application for adding, storing and editing cook recipes. Based on MVP architecture using [Mosby MVP library](http://hannesdorfmann.com/mosby/) and [Paper database](https://github.com/pilgr/Paper) for storing. 
 
+## Screenshots
+<p align="center">
+  <img src="./readme/screenshot-categories.jpg" width="250">
+  <img src="./readme/screenshot-breakfast.jpg" width="250">
+  <img src="./readme/screenshot-create-edit.jpg" width="250">
+</p>
+
 ## Used libraries
 -   [AppCompat, CardView, RecyclerView](http://developer.android.com/intl/tools/support-library/index.html)
 -   [MosbyMVP](http://hannesdorfmann.com/mosby/)
